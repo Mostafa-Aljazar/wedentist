@@ -13,7 +13,7 @@ const ArticleCard = ({ title, data, preview }: Props) => {
         IMAGE
       </div>
       <div className=" space-y-3 leading-tight">
-        <p className="text-[1.1rem] lg:text-[1.38rem]  font-semibold">
+        <p className="text-[1.1rem] lg:text-[1.38rem]  font-semibold text-gray-900">
           {title}
         </p>
         <span className=" text-[#aaaaaa] text-xs block">{data}</span>
