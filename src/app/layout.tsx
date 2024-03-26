@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={inter.className + "bg-[#f0f0f0]"}>
+      <body className={inter.className + " bg-[#f0f0f0]"}>
         <Header />
         {children}
       </body>

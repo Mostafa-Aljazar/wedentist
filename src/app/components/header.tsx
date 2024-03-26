@@ -8,7 +8,7 @@ type Props = {}
 const Header = (props: Props) => {
   const pathName = usePathname()
   return (
-    <header className="py-4 bg-white shadow-sm">
+    <header className="py-4 bg-white shadow-sm sticky top-0 z-30">
       <div className="container">
         <div className="flex  justify-between">
           <Link href={"/"}>LOGO</Link>
