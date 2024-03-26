@@ -8,8 +8,8 @@ type Props = {
 
 const ArticleCard = ({ title, data, preview }: Props) => {
   return (
-    <article className="flex gap-4 p-4 bg-white rounded-lg border shadow-sm ">
-      <div className=" aspect-square w-[350px] bg-slate-100 flex  justify-center rounded overflow-hidden items-center">
+    <article className="flex   max-[550px]:flex-col gap-4 p-4 bg-white rounded-lg border shadow-sm ">
+      <div className=" aspect-square max-[550px]:w-full w-[150px] shrink-0 bg-slate-100 flex  justify-center rounded overflow-hidden items-center">
         IMAGE
       </div>
       <div className=" space-y-3 leading-tight">

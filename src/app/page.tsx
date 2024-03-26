@@ -6,7 +6,7 @@ export default function Home() {
     <main className=" py-10  ">
       <div className="container">
         <div className=" md:flex gap-8">
-          <div className="w-1/3"></div>
+          <div className="w-1/3 max-md:hidden"></div>
           <ArticlesView />
         </div>
       </div>
