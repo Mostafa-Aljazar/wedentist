@@ -23,7 +23,7 @@ const Header = (props: Props) => {
                 <Link
                   className="  duration-300 text-gray-400 hover:text-gray-900"
                   href="/about">
-                  من نحن
+                  نبذة تعريفية
                 </Link>
               </li>
               <li>

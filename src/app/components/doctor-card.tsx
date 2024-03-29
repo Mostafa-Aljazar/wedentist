@@ -4,9 +4,9 @@ type Props = {}
 
 const DoctorCard = (props: Props) => {
   return (
-    <div className="border bg-white shadow p-4 rounded    space-y-5  text-sm">
+    <div className="border bg-white shadow p-5 rounded    space-y-5  text-sm">
       <div>
-        <div className="rounded-full w-[115px]  mx-auto  bg-slate-100 aspect-square flex items-center text-sm justify-center mb-7">
+        <div className="rounded-full w-[125px]  mx-auto  bg-slate-100 aspect-square flex items-center text-sm justify-center mb-7">
           Image
         </div>
         <p className=" text-[#333]">

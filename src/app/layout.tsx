@@ -1,9 +1,13 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Cairo } from "next/font/google"
 import "./globals.css"
 import Header from "./components/header"
+import DoctorCard from "./components/doctor-card"
 
-const inter = Inter({ subsets: ["latin"] })
+const cairo = Cairo({
+  subsets: ["arabic"],
+  weight: ["700", "600", "500", "400", "300"],
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,9 +21,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={inter.className + " bg-[#f0f0f0]"}>
+      <body className={cairo.className + " bg-[#f0f0f0]"}>
         <Header />
-        {children}
+        <main className=" py-8  ">
+          <div className="container">
+            <div className=" md:flex gap-8">
+              <div className="w-[220px] shrink-0 max-md:hidden">
+                <DoctorCard />
+              </div>
+              {children}
+            </div>
+          </div>
+        </main>
       </body>
     </html>
   )

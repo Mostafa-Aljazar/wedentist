@@ -67,7 +67,7 @@ const dummyArticles = [
 
 const ArticlesView = (props: Props) => {
   return (
-    <div className=" space-y-8">
+    <div className=" space-y-6">
       {dummyArticles.map((element, index) => {
         return <ArticleCard {...element} key={index} />
       })}
