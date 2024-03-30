@@ -1,12 +1,15 @@
 import React from "react"
 import Button from "@/components/button"
 
-type Props = {}
+type Props = {
+  params: { slug: string }
+}
 
-const page = (props: Props) => {
+const page = ({ params }: Props) => {
+  const { slug } = params
   return (
     <div className="bg-white border rounded-lg px-6 py-8  text-sm text-[#333] h-fit">
-      <h1 className="text-[30px] lg:text-[35px] mb-5">نبذة تعريفية</h1>
+      <h1 className="text-[30px] lg:text-[35px] mb-7">نبذة تعريفية</h1>
       <p>
         The rich text element allows you to create and format headings,
         paragraphs, blockquotes, images, and video all in one place instead of
@@ -29,7 +32,7 @@ const page = (props: Props) => {
           Donec id elit non mi porta gravida at eget metus. Donec ullamcorper
           nulla non metus auctor fringilla.
         </p>
-        <Button>تواصل معي</Button>
+        <Button href={`/${slug}/contact`}>تواصل معي</Button>
       </div>
     </div>
   )

@@ -9,7 +9,7 @@ type Props = {
 const images = [mesfer, rayan, asrar] as const
 const DoctorCard = ({ data }: Props) => {
   return (
-    <div className="border bg-white shadow p-5 rounded    space-y-5  text-sm">
+    <div className="border bg-white  p-5 rounded    space-y-5  text-sm">
       <div>
         <div className="w-[126px] h-[126px] aspect-square rounded-full mx-auto mb-7 overflow-hidden">
           <Image
