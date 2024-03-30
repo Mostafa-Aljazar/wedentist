@@ -1,8 +1,7 @@
 import type { Metadata } from "next"
 import { Cairo } from "next/font/google"
 import "./globals.css"
-import Header from "./components/header"
-import DoctorCard from "./components/doctor-card"
+import Header from "../components/header"
 
 const cairo = Cairo({
   subsets: ["arabic"],
@@ -23,16 +22,7 @@ export default function RootLayout({
     <html lang="ar" dir="rtl">
       <body className={cairo.className + " bg-[#f0f0f0]"}>
         <Header />
-        <main className=" py-8  ">
-          <div className="container">
-            <div className=" md:flex gap-8">
-              <div className="w-[220px] shrink-0 max-md:hidden">
-                <DoctorCard />
-              </div>
-              {children}
-            </div>
-          </div>
-        </main>
+        {children}
       </body>
     </html>
   )

@@ -15,7 +15,7 @@ const Header = (props: Props) => {
           <nav>
             <ul className="flex gap-4 ">
               <li>
-                <Link href="/" className="  duration-300  text-gray-900">
+                <Link href="" className="  duration-300  text-gray-900">
                   الرئيسية
                 </Link>
               </li>

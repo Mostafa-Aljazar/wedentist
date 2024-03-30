@@ -1,13 +1,22 @@
+import { Doctor, DoctorResponse } from "@/types/doctors-response"
 import React from "react"
+import { asrar, mesfer, rayan } from "@/assets"
+import Image from "next/image"
 
-type Props = {}
-
-const DoctorCard = (props: Props) => {
+type Props = {
+  data: Doctor
+}
+const images = [mesfer, rayan, asrar] as const
+const DoctorCard = ({ data }: Props) => {
   return (
     <div className="border bg-white shadow p-5 rounded    space-y-5  text-sm">
       <div>
-        <div className="rounded-full w-[125px]  mx-auto  bg-slate-100 aspect-square flex items-center text-sm justify-center mb-7">
-          Image
+        <div className="w-[126px] h-[126px] aspect-square rounded-full mx-auto mb-7 overflow-hidden">
+          <Image
+            src={images[data.id - 1]}
+            alt={data.personalInformation.name}
+            className="w-full h-full object-cover"
+          />
         </div>
         <p className=" text-[#333]">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
