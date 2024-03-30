@@ -1,35 +1,54 @@
 "use client"
+import { cn } from "@/utils/cn"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useParams, usePathname } from "next/navigation"
 import React from "react"
 
 type Props = {}
 
 const Header = (props: Props) => {
-  const pathName = usePathname()
+  const { slug } = useParams()
+  const pathname = usePathname()
   return (
     <header className="py-4 bg-white shadow-sm sticky top-0 z-30">
       <div className="container">
         <div className="flex  justify-between">
-          <Link href={"/"}>LOGO</Link>
+          <Link href={`/${slug}`}>LOGO</Link>
           <nav>
             <ul className="flex gap-4 ">
               <li>
-                <Link href="" className="  duration-300  text-gray-900">
+                <Link
+                  href={`/${slug}`}
+                  className={cn(
+                    "  duration-300  ",
+                    pathname === `/${slug}`
+                      ? "text-gray-900"
+                      : "text-gray-400 hover:text-gray-900"
+                  )}>
                   الرئيسية
                 </Link>
               </li>
               <li>
                 <Link
-                  className="  duration-300 text-gray-400 hover:text-gray-900"
-                  href="/about">
+                  className={cn(
+                    "  duration-300 ",
+                    pathname === `/${slug}/about`
+                      ? 'text-gray-900"'
+                      : "text-gray-400 hover:text-gray-900"
+                  )}
+                  href={`/${slug}/about`}>
                   نبذة تعريفية
                 </Link>
               </li>
               <li>
                 <Link
-                  className="  duration-300 text-gray-400 hover:text-gray-900"
-                  href="/contact">
+                  className={cn(
+                    "  duration-300 ",
+                    pathname === `/${slug}/contact`
+                      ? 'text-gray-900"'
+                      : "text-gray-400 hover:text-gray-900"
+                  )}
+                  href={`/${slug}/contact`}>
                   تواصل معنا
                 </Link>
               </li>
