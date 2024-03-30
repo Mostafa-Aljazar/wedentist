@@ -1,0 +1,97 @@
+{
+  "doctors": [
+    {
+      "id": 1,
+      "slug": "mesfer",
+      "personalInformation": {
+        "name": "MESFER ALI ALZAHRANI",
+        "specialization": "General Dentist",
+        "location": "Jeddah,KSA",
+        "contact": {
+          "phoneNumber": "0537790313",
+          "email": "msfer215@gmail.com",
+          "socialMedia": [
+            { "id": 0, "platform": "instagram", "user": "Drmesferz" }
+          ]
+        }
+      },
+      "skills": [
+        "Management Skills",
+        " Creativity",
+        " Negotiation",
+        " Communication skills",
+        " Fast Learning Curve",
+        " Decision Making",
+        " Critical Thinking",
+        " Active Listening",
+        " Computer Skills",
+        " Team Player",
+        " Punctuality",
+        " Organized",
+        " Flexibility",
+        " Creativity",
+        " Problem Solving",
+        " Empathy",
+        " Photography",
+        " Photo & video editing"
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "rayan",
+      "personalInformation": {
+        "name": "Rayan Abdulaziz Alshehri",
+        "specialization": "General Dentist",
+        "location": "Al Amir Abdulmajed district",
+        "contact": {
+          "phoneNumber": "0535635735",
+          "email": "rayyyannn@gmail.com",
+          "socialMedia": [
+            { "id": 0, "platform": "instagram", "user": "dr.rayyann" }
+          ]
+        }
+      },
+      "skills": [
+        "Quick adabtibility",
+        "Efficent social communication",
+        "Efficient under pressure",
+        "Effective team member and",
+        "communicator",
+        "Fast learning curve",
+        "Decision making",
+        "Critical thinking",
+        "Active thinking",
+        "Computer skills",
+        "Punctuality",
+        "Leadership",
+        "Organized",
+        "Flexibility",
+        "Empathy",
+        "Creating a positive work",
+        "environment"
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "asrar",
+      "personalInformation": {
+        "name": "Asrar Al-Buqayli",
+        "specialization": "General Dentist",
+        "location": "Jeddah,KSA",
+        "contact": {
+          "phoneNumber": "0509864454",
+          "email": "Albuqayli.asrar@gmail.com",
+          "socialMedia": [
+            { "id": 0, "platform": "instagram", "user": "dr.asrar_albuqayli" }
+          ]
+        }
+      },
+      "skills": [
+        "Creativity",
+        " Problem solving",
+        "Teamwork skills",
+        "Critical thinking"
+      ]
+    }
+  ]
+}
