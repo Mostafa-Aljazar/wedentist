@@ -11,7 +11,12 @@
           "phoneNumber": "0537790313",
           "email": "msfer215@gmail.com",
           "socialMedia": [
-            { "id": 0, "platform": "instagram", "user": "Drmesferz" }
+            {
+              "id": 0,
+              "platform": "instagram",
+              "user": "Drmesferz",
+              "link": "https://www.instagram.com/Drmesferz"
+            }
           ]
         }
       },
@@ -47,7 +52,12 @@
           "phoneNumber": "0535635735",
           "email": "rayyyannn@gmail.com",
           "socialMedia": [
-            { "id": 0, "platform": "instagram", "user": "dr.rayyann" }
+            {
+              "id": 0,
+              "platform": "instagram",
+              "user": "dr.rayyann",
+              "link": "https://www.instagram.com/dr.rayyann"
+            }
           ]
         }
       },
@@ -82,7 +92,12 @@
           "phoneNumber": "0509864454",
           "email": "Albuqayli.asrar@gmail.com",
           "socialMedia": [
-            { "id": 0, "platform": "instagram", "user": "dr.asrar_albuqayli" }
+            {
+              "id": 0,
+              "platform": "instagram",
+              "user": "dr.asrar_albuqayli",
+              "link": "https://www.instagram.com/dr.asrar_albuqayli"
+            }
           ]
         }
       },

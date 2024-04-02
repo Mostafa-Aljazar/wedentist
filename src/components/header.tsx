@@ -13,7 +13,6 @@ const Header = (props: Props) => {
     <header className="py-4 bg-white shadow-sm sticky top-0 z-30">
       <div className="container">
         <div className="flex  justify-between">
-          <Link href={`/${slug}`}>LOGO</Link>
           <nav>
             <ul className="flex gap-4 ">
               <li>
@@ -49,11 +48,12 @@ const Header = (props: Props) => {
                       : "text-gray-400 hover:text-gray-900"
                   )}
                   href={`/${slug}/contact`}>
-                  تواصل معنا
+                  للتواصل
                 </Link>
               </li>
             </ul>
           </nav>
+          <Link href={`/${slug}`}>LOGO</Link>
         </div>
       </div>
     </header>
