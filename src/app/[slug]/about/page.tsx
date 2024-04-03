@@ -18,20 +18,25 @@ const page = async ({ params }: Props) => {
       <h2 className="py-7 text-[28px] lg:text-[32px]">المسيرة التعليمية</h2>
 
       <div className=" space-y-4">
-        <p>
-          Maecenas faucibus mollis interdum. Vivamus sagittis lacus vel augue
-          laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus
-          porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Vestibulum id ligula porta felis euismod semper.
-        </p>
-
-        <p>
-          Vestibulum id ligula porta felis euismod semper. Cum sociis natoque
-          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-          Donec id elit non mi porta gravida at eget metus. Donec ullamcorper
-          nulla non metus auctor fringilla.
-        </p>
-        <Button href={`/${slug}/contact`}>تواصل معي</Button>
+        <div dir="ltr">
+          <p>
+            <span className="font-bold text-base">{doctor.education.year}</span>{" "}
+            <span>{doctor.education.course}</span>
+            <br /> from{" "}
+            <span className="font-semibold">{doctor.education.uni}</span>,{" "}
+            <span>{doctor.education.location}</span> /{" "}
+            <span className="font-bold">{doctor.education.GAP}</span>
+          </p>
+        </div>
+        <div className="flex gap-4">
+          <Button href={`/${slug}/contact`}>تواصل معي</Button>
+          <a
+            className="rounded bg-[#888] hover:bg-[#333] duration-300 px-5 py-3 text-white  leading-tight"
+            href={`/${slug}.pdf`}
+            download>
+            تحميل الCV
+          </a>
+        </div>
       </div>
     </div>
   )

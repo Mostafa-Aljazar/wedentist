@@ -8,6 +8,13 @@ export type Doctor = {
   personalInformation: PersonalInformation
   skills: string[]
   introduction: string
+  education: {
+    year: string
+    course: string
+    uni: string
+    location: string
+    GAP: string
+  }
 }
 
 export type PersonalInformation = {
