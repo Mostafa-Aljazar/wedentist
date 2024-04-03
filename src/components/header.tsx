@@ -1,5 +1,7 @@
 "use client"
+import { logo } from "@/assets"
 import { cn } from "@/utils/cn"
+import Image from "next/image"
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import React from "react"
@@ -12,7 +14,7 @@ const Header = (props: Props) => {
   return (
     <header className="py-4 bg-white shadow-sm sticky top-0 z-30">
       <div className="container">
-        <div className="flex  justify-between">
+        <div className="flex  justify-between items-center">
           <nav>
             <ul className="flex gap-4 ">
               <li>
@@ -53,7 +55,9 @@ const Header = (props: Props) => {
               </li>
             </ul>
           </nav>
-          <Link href={`/${slug}`}>LOGO</Link>
+          <Link href={`/${slug}`}>
+            <Image src={logo} alt="logo" className="w-12" />
+          </Link>
         </div>
       </div>
     </header>

@@ -57,7 +57,6 @@ const DoctorCard = ({ data }: Props) => {
           )
         })}
       </div>
-      <div className="w-2/3 h-[1.5px] ml-auto bg-gray-300"></div>
     </div>
   )
 }
