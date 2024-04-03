@@ -1,22 +1,21 @@
 import React from "react"
 import Button from "@/components/button"
+import { DoctorResponse } from "@/types/doctors-response"
 
 type Props = {
   params: { slug: string }
 }
 
-const page = ({ params }: Props) => {
+const page = async ({ params }: Props) => {
   const { slug } = params
+  const response = await fetch("http://localhost:3000/data/data.json")
+  const data = (await response.json()) as DoctorResponse
+  const doctor = data.doctors.find((d) => d.slug === slug)!
   return (
     <div className="bg-white border rounded-lg px-6 py-8  text-sm text-[#333] h-fit">
       <h1 className="text-[30px] lg:text-[35px] mb-7">نبذة تعريفية</h1>
-      <p>
-        The rich text element allows you to create and format headings,
-        paragraphs, blockquotes, images, and video all in one place instead of
-        having to add and format them individually. Just double-click and easily
-        create content
-      </p>
-      <h2 className="py-7 text-[28px] lg:text-[32px]">عنوان اخر هنا</h2>
+      <p>{doctor.introduction}</p>
+      <h2 className="py-7 text-[28px] lg:text-[32px]">المسيرة التعليمية</h2>
 
       <div className=" space-y-4">
         <p>

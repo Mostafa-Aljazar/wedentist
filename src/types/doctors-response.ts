@@ -7,6 +7,7 @@ export type Doctor = {
   slug: string
   personalInformation: PersonalInformation
   skills: string[]
+  introduction: string
 }
 
 export type PersonalInformation = {

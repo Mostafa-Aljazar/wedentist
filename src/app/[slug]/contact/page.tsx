@@ -8,10 +8,12 @@ const page = (props: Props) => {
     <div className="bg-white border rounded-lg px-6 py-8  text-sm text-[#333] h-fit">
       <h1 className="text-[30px] lg:text-[35px] mb-7">تواصل معي</h1>
       <p className="pb-4">
-        The rich text element allows you to create and format headings,
-        paragraphs, blockquotes, images, and video all in one place instead of
-        having to add and format them individually. Just double-click and easily
-        create content
+        نحن في انتظار رسائلكم واستفساراتكم. سواء كنتم بحاجة إلى مزيد من
+        المعلومات عن خدماتنا أو ترغبون في تحديد موعد لزيارتنا، فلا تترددوا في
+        الاتصال بنا. نحن هنا لخدمتكم بكل اهتمام واحترافية لضمان راحتكم ورضاكم
+        التام. يمكنكم التواصل معنا عبر الهاتف أو البريد الإلكتروني المدرج أدناه،
+        أو بزيارتنا شخصيا في العيادة. نحن في انتظاركم لنقدم لكم أفضل الخدمات
+        والرعاية الطبية في مجال طب الأسنان
       </p>
       <form action="" className=" space-y-4">
         <div>
@@ -39,6 +41,20 @@ const page = (props: Props) => {
             type="email"
             id="email"
             placeholder="john@example.com"
+            className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="phone_number"
+            className="block text-xs font-medium text-gray-700">
+            رقم الجوال
+          </label>
+
+          <input
+            type="text"
+            id="phone_number"
+            placeholder="05* *** ****"
             className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
           />
         </div>
