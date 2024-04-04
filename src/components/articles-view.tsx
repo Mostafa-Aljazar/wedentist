@@ -75,7 +75,7 @@ const ArticlesView = async ({ slug }: { slug: string }) => {
   return (
     <div className=" space-y-6">
       {blogs.map((element, index) => {
-        return <ArticleCard {...element} key={index} />
+        return <ArticleCard slug={slug} {...element} key={index} />
       })}
     </div>
   )
