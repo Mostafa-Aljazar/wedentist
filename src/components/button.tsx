@@ -15,7 +15,7 @@ const Button = ({ className, children, href, ...props }: Props) => {
     <button
       onClick={handleClick}
       className={cn(
-        "rounded bg-[#333] hover:bg-[#888] duration-300 px-5 py-3 text-white ",
+        "rounded bg-secondary hover:bg-primary duration-300 px-5 py-3 text-white ",
         className
       )}
       {...props}>

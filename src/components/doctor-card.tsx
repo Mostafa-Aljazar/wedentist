@@ -31,7 +31,7 @@ const DoctorCard = ({ data }: Props) => {
       <div className="w-2/3 h-[1.5px] ml-auto bg-gray-300"></div>
       <div className=" space-y-2">
         <div className="flex gap-1 items-center text-sm text-[#919191] hover:text-[#333] duration-200">
-          <MapPin className="  c shrink-0  w-4 " />
+          <MapPin className="  c shrink-0  w-4 text-primary" />
           {data.personalInformation.location}
         </div>
         <div
@@ -41,7 +41,7 @@ const DoctorCard = ({ data }: Props) => {
             )
           }}
           className="flex cursor-pointer gap-1 items-center text-sm text-[#919191] hover:text-[#333] duration-200">
-          <Phone className="shrink-0  w-4" />
+          <Phone className="shrink-0  w-4 text-primary" />
           {data.personalInformation.contact.phoneNumber}
         </div>
         {data.personalInformation.contact.socialMedia.map((e, i) => {
@@ -51,7 +51,7 @@ const DoctorCard = ({ data }: Props) => {
               href={e.link}
               key={e.id}
               className="flex gap-1 items-center text-[#919191] hover:text-[#333] duration-200 cursor-pointer">
-              <Instagram className=" shrink-0  w-4" />
+              <Instagram className=" shrink-0  w-4 text-primary" />
               {e.user}
             </a>
           )

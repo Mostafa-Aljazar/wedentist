@@ -23,8 +23,8 @@ const Header = (props: Props) => {
                   className={cn(
                     "  duration-300  ",
                     pathname === `/${slug}`
-                      ? "text-gray-900"
-                      : "text-gray-400 hover:text-gray-900"
+                      ? "text-primary"
+                      : "text-secondary hover:text-primary"
                   )}>
                   الرئيسية
                 </Link>
@@ -34,8 +34,8 @@ const Header = (props: Props) => {
                   className={cn(
                     "  duration-300 ",
                     pathname === `/${slug}/about`
-                      ? 'text-gray-900"'
-                      : "text-gray-400 hover:text-gray-900"
+                      ? 'text-primary"'
+                      : "text-secondary hover:text-primary"
                   )}
                   href={`/${slug}/about`}>
                   نبذة تعريفية
@@ -46,8 +46,8 @@ const Header = (props: Props) => {
                   className={cn(
                     "  duration-300 ",
                     pathname === `/${slug}/contact`
-                      ? 'text-gray-900"'
-                      : "text-gray-400 hover:text-gray-900"
+                      ? 'text-primary"'
+                      : "text-secondary hover:text-primary"
                   )}
                   href={`/${slug}/contact`}>
                   للتواصل
