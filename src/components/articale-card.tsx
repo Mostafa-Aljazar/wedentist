@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { logo } from "@/assets"
 import { Blog } from "@/types/blogs-response"
 import Link from "next/link"

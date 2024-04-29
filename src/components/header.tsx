@@ -34,7 +34,7 @@ const Header = (props: Props) => {
                   className={cn(
                     "  duration-300 ",
                     pathname === `/${slug}/about`
-                      ? 'text-primary"'
+                      ? " text-primary "
                       : "text-secondary hover:text-primary"
                   )}
                   href={`/${slug}/about`}>
@@ -46,7 +46,7 @@ const Header = (props: Props) => {
                   className={cn(
                     "  duration-300 ",
                     pathname === `/${slug}/contact`
-                      ? 'text-primary"'
+                      ? "text-primary "
                       : "text-secondary hover:text-primary"
                   )}
                   href={`/${slug}/contact`}>

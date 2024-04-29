@@ -26,6 +26,7 @@ const page = (props: Props) => {
           <input
             type="text"
             id="name"
+            name="name"
             placeholder="اسمك بالكامل"
             className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
           />
@@ -40,6 +41,7 @@ const page = (props: Props) => {
           <input
             type="email"
             id="email"
+            name="email"
             placeholder="john@example.com"
             className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
           />
@@ -54,6 +56,7 @@ const page = (props: Props) => {
           <input
             type="text"
             id="phone_number"
+            name="phoneNumber"
             placeholder="05* *** ****"
             className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
           />
@@ -67,6 +70,7 @@ const page = (props: Props) => {
 
           <textarea
             id="message"
+            name="message"
             placeholder="رسالتك"
             className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
           />
