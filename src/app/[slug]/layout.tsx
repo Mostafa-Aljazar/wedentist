@@ -10,7 +10,9 @@ type Props = {
 }
 export const dynamicParams = false
 export async function generateStaticParams() {
-  const response = await fetch("http://localhost:3000/data/data.json")
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + "/data/data.json"
+  )
   const data = (await response.json()) as DoctorResponse
   return data.doctors.map((doctor: Doctor) => ({
     slug: doctor.slug,
@@ -18,8 +20,11 @@ export async function generateStaticParams() {
 }
 
 export default async function layout({ children, params }: Props) {
+  console.log(process.env.NEXT_PUBLIC_BASE_URL)
   const { slug } = params
-  const response = await fetch("http://localhost:3000/data/data.json")
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + "/data/data.json"
+  )
   const data = (await response.json()) as DoctorResponse
   const doctor = data.doctors.find((d) => d.slug === slug)!
   return (

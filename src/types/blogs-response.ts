@@ -8,4 +8,5 @@ export type Blog = {
   date: string
   content: string
   preview: string
+  coverImage?: string
 }
