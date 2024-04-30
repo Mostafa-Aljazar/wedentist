@@ -18,7 +18,13 @@ export async function POST(
     const doctor = doctors.doctors.find((d) => d.slug === slug)!
     if (!doctor) return new Response("doctor not found", { status: 404 })
 
-    await sendMail({ ...body, to: doctor.personalInformation.contact.email })
+    await sendMail({
+      ...body,
+      to:
+        process.env.NODE_ENV === "production"
+          ? "Iconsaad89@gmail.com"
+          : "xv.neer.business@gmail.com",
+    })
 
     return new Response("ok")
   } catch (error) {

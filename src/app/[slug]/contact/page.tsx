@@ -1,9 +1,51 @@
+"use client"
 import Button from "@/components/button"
+import { cn } from "@/utils/cn"
+import { contactSchema } from "@/validation/contact-schema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
 import React from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { z } from "zod"
 
-type Props = {}
+type Props = {
+  params: {
+    slug: string
+  }
+}
 
-const page = (props: Props) => {
+const Page = ({ params: { slug } }: Props) => {
+  const {
+    setError,
+    register,
+    formState: { errors, isSubmitting, isSubmitted },
+    handleSubmit,
+    reset,
+  } = useForm<z.infer<typeof contactSchema>>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phoneNumber: "",
+      message: "",
+    },
+  })
+
+  // handling login
+  const onSubmit: SubmitHandler<z.infer<typeof contactSchema>> = async (
+    data
+  ) => {
+    try {
+      const response = await axios.post(`/api/${slug}/contact`, data)
+      reset()
+      console.log("🚀 ~ Page ~ response:", response)
+    } catch (error: any) {
+      setError("root", {
+        message: error.message || "حصل خطأ ما الرجاء المحاولة مجددا",
+      })
+    }
+  }
+
   return (
     <div className="bg-white border rounded-lg px-6 py-8  text-sm text-[#333] h-fit">
       <h1 className="text-[30px] lg:text-[35px] mb-7">تواصل معي</h1>
@@ -15,7 +57,7 @@ const page = (props: Props) => {
         أو بزيارتنا شخصيا في العيادة. نحن في انتظاركم لنقدم لكم أفضل الخدمات
         والرعاية الطبية في مجال طب الأسنان
       </p>
-      <form action="" className=" space-y-4">
+      <form noValidate onSubmit={handleSubmit(onSubmit)} className=" space-y-4">
         <div>
           <label
             htmlFor="name"
@@ -24,12 +66,19 @@ const page = (props: Props) => {
           </label>
 
           <input
+            {...register("name")}
             type="text"
             id="name"
-            name="name"
             placeholder="اسمك بالكامل"
-            className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
+            className={cn(
+              "mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm",
+              errors.name?.message &&
+                " border-red-600  focus:border-red-500 focus-within:border-red-500"
+            )}
           />
+          {errors.name?.message ? (
+            <span className=" text-sm text-red-500">{errors.name.message}</span>
+          ) : null}
         </div>
         <div>
           <label
@@ -39,12 +88,21 @@ const page = (props: Props) => {
           </label>
 
           <input
+            {...register("email")}
             type="email"
             id="email"
-            name="email"
             placeholder="john@example.com"
-            className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
+            className={cn(
+              "mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm",
+              errors.email?.message &&
+                " border-red-600  focus:border-red-500 focus-within:border-red-500"
+            )}
           />
+          {errors.email?.message ? (
+            <span className=" text-sm text-red-500">
+              {errors.email.message}
+            </span>
+          ) : null}
         </div>
         <div>
           <label
@@ -54,12 +112,21 @@ const page = (props: Props) => {
           </label>
 
           <input
+            {...register("phoneNumber")}
             type="text"
             id="phone_number"
-            name="phoneNumber"
-            placeholder="05* *** ****"
-            className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
+            placeholder="5* *** ****"
+            className={cn(
+              "mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm",
+              errors.phoneNumber &&
+                " border-red-600  focus:border-red-500 focus-within:border-red-500"
+            )}
           />
+          {errors.phoneNumber ? (
+            <span className=" text-sm text-red-500">
+              {errors.phoneNumber.message}
+            </span>
+          ) : null}
         </div>
         <div>
           <label
@@ -69,16 +136,35 @@ const page = (props: Props) => {
           </label>
 
           <textarea
+            {...register("message")}
             id="message"
             name="message"
             placeholder="رسالتك"
-            className="mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm"
+            className={cn(
+              "mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm",
+              errors.message &&
+                " border-red-600  focus:border-red-500 focus-within:border-red-500"
+            )}
           />
+          {errors.message ? (
+            <span className=" text-sm text-red-500">
+              {errors.message?.message}
+            </span>
+          ) : null}
         </div>
-        <Button>ارسال</Button>
+        <Button
+          disabled={isSubmitting}
+          className={
+            isSubmitting ? " pointer-events-none cursor-none opacity-70" : ""
+          }>
+          ارسال
+        </Button>
+        {errors.root ? (
+          <span className=" text-sm text-red-500">{errors.root?.message}</span>
+        ) : null}
       </form>
     </div>
   )
 }
 
-export default page
+export default Page
