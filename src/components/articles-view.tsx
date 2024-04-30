@@ -1,16 +1,12 @@
 import React from "react"
 import ArticleCard from "./articale-card"
-import { BlogsResponse } from "@/types/blogs-response"
 import { notFound } from "next/navigation"
+import data from "@/content/data/blogs.json"
 
 type Props = {}
 
 const ArticlesView = async ({ slug }: { slug: string }) => {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_BASE_URL + "/data/blogs.json"
-  )
-  const data = (await response.json()) as BlogsResponse
-  const blogs = data[slug]
+  const blogs = data[slug as keyof typeof data]
   if (!blogs) notFound()
   return (
     <div className=" space-y-6">

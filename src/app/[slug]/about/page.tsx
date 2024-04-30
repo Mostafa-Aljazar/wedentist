@@ -1,6 +1,6 @@
 import React from "react"
 import Button from "@/components/button"
-import { DoctorResponse } from "@/types/doctors-response"
+import data from "@/content/data/data.json"
 
 type Props = {
   params: { slug: string }
@@ -8,10 +8,7 @@ type Props = {
 
 const page = async ({ params }: Props) => {
   const { slug } = params
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_BASE_URL + "/data/data.json"
-  )
-  const data = (await response.json()) as DoctorResponse
+
   const doctor = data.doctors.find((d) => d.slug === slug)!
   return (
     <div className="bg-white border rounded-lg px-6 py-8  text-sm text-[#333] h-fit">

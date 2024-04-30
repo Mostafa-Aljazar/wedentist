@@ -1,16 +1,16 @@
 import { BlogsResponse } from "@/types/blogs-response"
 import { notFound } from "next/navigation"
 import React from "react"
+import blogs from "@/content/data/blogs.json"
 
 type Props = { params: { slug: string; blogID: string } }
 
 const Page = async ({ params }: Props) => {
   const { slug, blogID } = params
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_BASE_URL + "/data/blogs.json"
+
+  const blog = blogs[slug as keyof typeof blogs].find(
+    (e) => e.id + "" === blogID
   )
-  const data = (await response.json()) as BlogsResponse
-  const blog = data[slug].find((e) => e.id + "" === blogID)
   if (!blog) notFound()
 
   return (
