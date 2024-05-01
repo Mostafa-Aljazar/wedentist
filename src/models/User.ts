@@ -4,9 +4,17 @@ export type User = {
   username: string
   email: string
   password: string
+  createdAt: Date
+  role: 1 | 2
 }
 
 export const blogSchema = new Schema<User>({
+  role: {
+    type: Number,
+    required: true,
+    default: 2, // admin=1 , doctor=2
+  },
+
   username: {
     type: String,
     required: true,
@@ -15,6 +23,11 @@ export const blogSchema = new Schema<User>({
   email: {
     type: String,
     required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+    immutable: true,
   },
   password: {
     type: String,
