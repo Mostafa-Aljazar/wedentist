@@ -1,5 +1,5 @@
 import DoctorCard from "@/components/doctor-card"
-import { Doctor } from "@/types/doctors-response"
+import { Doctor } from "@/models/Doctor"
 import React from "react"
 import data from "@/content/data/data.json"
 

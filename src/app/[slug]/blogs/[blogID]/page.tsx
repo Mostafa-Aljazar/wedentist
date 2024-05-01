@@ -1,4 +1,3 @@
-import { BlogsResponse } from "@/types/blogs-response"
 import { notFound } from "next/navigation"
 import React from "react"
 import blogs from "@/content/data/blogs.json"
