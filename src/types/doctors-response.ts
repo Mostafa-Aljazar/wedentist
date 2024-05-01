@@ -1,38 +1,5 @@
+import { type Doctor } from "@/models/Doctor"
+
 export type DoctorResponse = {
   doctors: Doctor[]
-}
-
-export type Doctor = {
-  id: number
-  slug: string
-  personalInformation: PersonalInformation
-  skills: string[]
-  introduction: string
-  education: {
-    year: string
-    course: string
-    uni: string
-    location: string
-    GAP: string
-  }
-}
-
-export type PersonalInformation = {
-  name: string
-  specialization: string
-  location: string
-  contact: Contact
-}
-
-export type Contact = {
-  phoneNumber: string
-  email: string
-  socialMedia: SocialMedia[]
-}
-
-export type SocialMedia = {
-  id: number
-  platform: string
-  user: string
-  link: string
 }

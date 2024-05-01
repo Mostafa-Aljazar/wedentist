@@ -23,18 +23,18 @@ const page = async ({ params }: Props) => {
             <span>{doctor.education.course}</span>
             <br /> from{" "}
             <span className="font-semibold">{doctor.education.uni}</span>,{" "}
-            <span>{doctor.education.location}</span> /{" "}
-            <span className="font-bold">{doctor.education.GAP}</span>
+            <span>{doctor.education.location}</span>
+            {/* <span className="font-bold">{doctor.education.GAP}</span> */}
           </p>
         </div>
         <div className="flex gap-4">
           <Button href={`/${slug}/contact`}>تواصل معي</Button>
-          <a
+          {/* <a
             className="rounded bg-[#888] hover:bg-[#333] duration-300 px-5 py-3 text-white  leading-tight"
             href={`/${slug}.pdf`}
             download>
             تحميل الCV
-          </a>
+          </a> */}
         </div>
       </div>
     </div>
