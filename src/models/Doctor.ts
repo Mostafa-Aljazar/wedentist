@@ -62,14 +62,17 @@ export const educationSchema = new Schema<Education>({
 })
 
 // Doctor Schema
-export const doctorSchema = new Schema<Doctor>({
-  slug: { type: String, required: true, unique: true },
-  personalInformation: { type: personalInformationSchema, required: true },
-  skills: [{ type: String, required: true }],
-  introduction: { type: String, required: true },
-  education: { type: educationSchema, required: true },
-})
+export const doctorSchema = new Schema<Doctor>(
+  {
+    slug: { type: String, required: true, unique: true },
+    personalInformation: { type: personalInformationSchema, required: true },
+    skills: [{ type: String, required: true }],
+    introduction: { type: String, required: true },
+    education: { type: educationSchema, required: true },
+  },
+  { timestamps: true }
+)
 
-const Doctor = mongoose.models.doctor || model("doctor", doctorSchema)
+const Doctor = mongoose.models.Doctor || model("Doctor", doctorSchema)
 
 export default Doctor

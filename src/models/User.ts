@@ -8,33 +8,36 @@ export type User = {
   role: 1 | 2
 }
 
-export const blogSchema = new Schema<User>({
-  role: {
-    type: Number,
-    required: true,
-    default: 2, // admin=1 , doctor=2
-  },
+export const blogSchema = new Schema<User>(
+  {
+    role: {
+      type: Number,
+      required: true,
+      default: 2, // admin=1 , doctor=2
+    },
 
-  username: {
-    type: String,
-    required: true,
-    unique: true,
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+      immutable: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-    immutable: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-})
+  { timestamps: true }
+)
 
-const User = mongoose.models.user || model("user", blogSchema)
+const User = mongoose.models.User || model("User", blogSchema)
 
 export default User
