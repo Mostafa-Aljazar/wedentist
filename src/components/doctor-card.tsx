@@ -1,5 +1,5 @@
 "use client"
-import { Doctor, DoctorResponse } from "@/types/doctors-response"
+import { type Doctor } from "@/models/Doctor"
 import React from "react"
 import { asrar, mesfer, rayan } from "@/assets"
 import Image from "next/image"
@@ -15,6 +15,7 @@ const DoctorCard = ({ data }: Props) => {
       <div className="text-center ">
         <div className="w-[126px] h-[126px] aspect-square rounded-full mx-auto mb-7 overflow-hidden">
           <Image
+            // @ts-ignore
             src={images[data.id - 1]}
             alt={data.personalInformation.name}
             className="w-full h-full object-cover"
