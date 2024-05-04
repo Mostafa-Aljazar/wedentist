@@ -27,10 +27,17 @@ export default function DeleteModal({ title, slug, id }: Props) {
     console.log("title delete :", title);
     console.log("blogs delete :", blogs);
   };
+
+  const onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onOpen();
+  };
+  
   return (
-    <>
+    <div>
       <Button
-        onPress={onOpen}
+        onClick={onClick}
         size="sm"
         className="group flex items-center justify-between gap-1 rounded-lg border border-primary bg-primary px-3 py-0 transition-colors hover:bg-transparent focus:outline-none "
       >
@@ -81,6 +88,6 @@ export default function DeleteModal({ title, slug, id }: Props) {
           )}
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 }

@@ -11,32 +11,29 @@ type Props = Blog & {
 
 const ArticleCard = ({ title, date, preview, slug, id, coverImage }: Props) => {
   return (
-    <div className="block">
+    <Link href={`/${slug}/blogs/${id}`} className="block">
       <article className="flex   max-[550px]:flex-col gap-4 p-4 bg-white rounded-lg border  ">
-        <Link
-          href={`/${slug}/blogs/${id}`}
-          className=" aspect-square max-[550px]:w-full w-[190px] shrink-0 bg-slate-50 flex  justify-center rounded overflow-hidden items-center"
-        >
+        <div className=" aspect-square max-[550px]:w-full w-[190px] shrink-0 bg-slate-50 flex  justify-center rounded overflow-hidden items-center">
           <img
             src={coverImage || logo.src}
             alt="cover"
             className=" w-full h-full object-cover"
           />
-        </Link>
+        </div>
         <div className=" space-y-3 leading-tight">
           <div className="flex justify-between items-center">
-            <Link href={`/${slug}/blogs/${id}`}>
+            <div>
               <p className="text-[1.1rem] lg:text-[1.38rem]  font-semibold text-gray-900">
                 {title}
               </p>
-            </Link>
-            <DeleteModal slug={slug} title={title} id={id}/>
+            </div>
+            <DeleteModal slug={slug} title={title} id={id} />
           </div>
           <span className=" text-[#aaaaaa] text-xs block">{date}</span>
           <p className="text-[#aaaaaa] text-sm">{preview}</p>
         </div>
       </article>
-    </div>
+    </Link>
   );
 };
 
