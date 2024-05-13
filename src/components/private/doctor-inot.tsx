@@ -1,11 +1,14 @@
 "use client"
 
+import { useParams } from "next/navigation"
 import { type Doctor } from "@/models/Doctor"
 import { doctorInfoSchema } from "@/validation/doctor-info"
 import { DevTool } from "@hookform/devtools"
 import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
 import { Trash2 } from "lucide-react"
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -55,16 +58,13 @@ export default function DoctorInfo({
       link: "",
     })
   }
+  const { slug } = useParams() as { slug: string }
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      await new Promise((res) => {
-        setTimeout(() => {
-          res("ok")
-        }, 3000)
-      })
-      console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ data:", data)
+      await axios.post(`/api/${slug}/update-personal-info`, data)
+      toast.success("تم تحديث البيانات بنجاح")
     } catch (error) {
-      console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ error:", error)
+      toast.error("عذرا لم يتم تعديل البيانات")
     }
   }
 

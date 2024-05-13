@@ -2,7 +2,6 @@ import data from "@/content/data/data.json"
 import { contactSchema } from "@/validation/contact-schema"
 import { z } from "zod"
 
-import { DoctorResponse } from "@/types/doctors-response"
 import { sendMail } from "@/lib/nodemailer/mail"
 
 export async function POST(

@@ -10,8 +10,7 @@ type Props = { params: { slug: string } }
 export const dynamic = "force-dynamic"
 const page = async ({ params: { slug } }: Props) => {
   await dbConnect()
-  const doctor = (await Doctor.findOne({ slug })) as DoctorType
-  console.log("🚀 ~ page ~ doctor:", doctor)
+  const doctor = (await Doctor.findOne({ slug }).exec()) as DoctorType
   if (!doctor) notFound()
   return (
     <div>
