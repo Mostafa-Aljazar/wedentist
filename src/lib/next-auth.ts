@@ -7,9 +7,11 @@ import dbConnect from "./db"
 
 // import bcrypt from 'bcrypt'
 
-const credentialSchema = z
-  .object({ username: z.string().min(1).max(50), password: z.string().min(1) })
-  .strict()
+const credentialSchema = z.object({
+  username: z.string().min(1).max(50),
+  password: z.string().min(1),
+})
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({

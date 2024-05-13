@@ -1,10 +1,17 @@
 import React from "react"
+import { redirect } from "next/navigation"
+import { getServerSession } from "next-auth"
+import { useSession } from "next-auth/react"
 
+import { authOptions } from "@/lib/next-auth"
 import LoginForm from "@/components/login/login-form"
 
 type Props = {}
 
-const page = (props: Props) => {
+const page = async (props: Props) => {
+  const session = await getServerSession(authOptions)
+
+  if (!session) redirect("/login")
   return <LoginForm />
 }
 

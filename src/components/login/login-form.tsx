@@ -2,10 +2,14 @@
 
 import React, { useState } from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { logo } from "@/assets"
+import { cn } from "@/utils/cn"
 import { LoginFormSchema } from "@/validation/login-schema"
 import { DevTool } from "@hookform/devtools"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2 } from "lucide-react"
+import { signIn } from "next-auth/react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -18,21 +22,27 @@ const LoginForm = () => {
     handleSubmit,
     control,
     reset,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(LoginFormSchema),
   })
 
+  const router = useRouter()
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>=async ~ data:", data)
-
+      const response = await signIn("credentials", { ...data, redirect: false })
+      if (!response?.ok)
+        throw new Error(
+          response?.status === 401
+            ? "البيانات التي قمت بادخالها خاطئة"
+            : "حصل خطأ ما",
+        )
       reset()
-    } catch (error) {
-      console.log(
-        "🚀 ~ constonSubmit:SubmitHandler<FormValues>=async ~ error:",
-        error,
-      )
+      router.push("/dashboard")
+    } catch (error: any) {
+      console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ error:", error)
+      setError("root", { message: error.message || "خطأ غير معروف" })
     }
   }
 
@@ -56,10 +66,9 @@ const LoginForm = () => {
 
             <div className="relative">
               <input
-                type="email"
                 className="w-full border-gray-200 p-4 pe-12 text-sm shadow-sm "
-                placeholder="Enter email"
-                {...register("email", { required: true })}
+                placeholder="الايميل او اسم المستخدم"
+                {...register("username", { required: true })}
               />
 
               <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -79,9 +88,9 @@ const LoginForm = () => {
               </span>
             </div>
 
-            {errors.email && (
+            {errors.username && (
               <span className="text-left text-[12px] text-red-500">
-                {errors.email?.message}
+                {errors.username?.message}
               </span>
             )}
           </div>
@@ -94,7 +103,7 @@ const LoginForm = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 className="w-full  border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter password"
+                placeholder="ادخل كلمة المرور"
                 {...register("password", { required: true })}
               />
               <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -149,9 +158,18 @@ const LoginForm = () => {
           <button
             disabled={isSubmitting}
             type="submit"
-            className="block w-full  bg-primary px-5 py-3 text-sm font-medium text-white">
+            className={cn(
+              " flex  w-full items-center justify-center gap-2 bg-primary px-5 py-3 text-sm  font-medium text-white",
+              isSubmitting && " opacity-70",
+            )}>
+            {isSubmitting ? <Loader2 className=" size-5 animate-spin  " /> : null}{" "}
             تسجيل الدخول
           </button>
+          {errors.root && (
+            <span className="py-1 text-[12px] text-red-500">
+              {errors.root?.message}
+            </span>
+          )}
         </form>
         <DevTool control={control} />
       </div>
