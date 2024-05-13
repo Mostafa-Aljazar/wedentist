@@ -1,7 +1,6 @@
 import React from "react"
 import { redirect } from "next/navigation"
 import { getServerSession } from "next-auth"
-import { useSession } from "next-auth/react"
 
 import { authOptions } from "@/lib/next-auth"
 import LoginForm from "@/components/login/login-form"

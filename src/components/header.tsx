@@ -25,7 +25,7 @@ const Header = (props: Props) => {
                     "  duration-300  ",
                     pathname === `/${slug}`
                       ? "text-primary"
-                      : "text-secondary hover:text-primary",
+                      : "text-[#3e4444] hover:text-primary",
                   )}>
                   الرئيسية
                 </Link>
@@ -36,7 +36,7 @@ const Header = (props: Props) => {
                     "  duration-300 ",
                     pathname === `/${slug}/about`
                       ? " text-primary "
-                      : "text-secondary hover:text-primary",
+                      : "text-[#3e4444] hover:text-primary",
                   )}
                   href={`/${slug}/about`}>
                   نبذة تعريفية
@@ -48,7 +48,7 @@ const Header = (props: Props) => {
                     "  duration-300 ",
                     pathname === `/${slug}/contact`
                       ? "text-primary "
-                      : "text-secondary hover:text-primary",
+                      : "text-[#3e4444] hover:text-primary",
                   )}
                   href={`/${slug}/contact`}>
                   للتواصل
