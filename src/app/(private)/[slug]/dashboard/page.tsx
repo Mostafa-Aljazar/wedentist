@@ -1,5 +1,9 @@
-import ArticlesView from "@/components/articles-view"
+import React from "react"
 
-export default function Home({ params }: { params: { slug: string } }) {
-  return <ArticlesView slug={params.slug} />
+type Props = {}
+
+const page = (props: Props) => {
+  return <div>page</div>
 }
+
+export default page
