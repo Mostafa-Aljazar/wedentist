@@ -1,54 +1,53 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useForm, SubmitHandler, FieldErrors } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
+"use client"
+import React, { useState } from "react"
+import { useForm, SubmitHandler } from "react-hook-form"
+import { DevTool } from "@hookform/devtools"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginFormSchema } from "@/validation/login-schema";
-import { loginFormValues } from "@/types/login-response";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { LoginFormSchema } from "@/validation/login-schema"
+import Image from "next/image"
+import { logo } from "@/assets"
+import { z } from "zod"
 
+type FormValues = z.infer<typeof LoginFormSchema>
 const LoginForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const form = useForm<loginFormValues>({
-    mode: "onBlur",
-    resolver: zodResolver(LoginFormSchema),
-  });
+  const [showPassword, setShowPassword] = useState(false)
 
   const {
     register,
     handleSubmit,
     control,
     reset,
-    formState: { errors, isSubmitSuccessful },
-  } = form;
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({
+    resolver: zodResolver(LoginFormSchema),
+  })
 
-  const onSubmit = (data: loginFormValues) => {
-    console.log("FormValues :", data);
-  };
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      console.log(
+        "🚀 ~ constonSubmit:SubmitHandler<FormValues>=async ~ data:",
+        data
+      )
 
-  const onError = (errors: FieldErrors<loginFormValues>) => {
-    console.log("FormErrors :", errors);
-  };
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
+      reset()
+    } catch (error) {
+      console.log(
+        "🚀 ~ constonSubmit:SubmitHandler<FormValues>=async ~ error:",
+        error
+      )
     }
-  }, [isSubmitSuccessful, reset]);
+  }
 
   return (
     <div className="mx-auto min-h-screen flex items-center max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 ">
-      <div className="mx-auto w-full max-w-md  ">
-        <h1 className="text-center text-2xl font-bold text-primary sm:text-3xl">
-          Wedentis
-        </h1>
+      <div className="mx-auto pt-6 w-full max-w-md   bg-white">
+        <Image className=" size-24 mx-auto" src={logo} alt="wedentis" />
 
         <form
-          className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
-          onSubmit={handleSubmit(onSubmit, onError)}
-          noValidate
-        >
+          className="mb-0  space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate>
           <p className="text-center text-lg font-medium">
             سجل دخولك لمنصة Wedentis الان
           </p>
@@ -72,8 +71,7 @@ const LoginForm = () => {
                   className="size-4 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                  stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -103,15 +101,17 @@ const LoginForm = () => {
                 {...register("password", { required: true })}
               />
               <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                <button onClick={() => setShowPassword(!showPassword)}>
+                <button
+                  type="button"
+                  aria-label={!showPassword ? "hide password" : "show password"}
+                  onClick={() => setShowPassword((pre) => !pre)}>
                   {showPassword ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="size-4 text-gray-400"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
+                      stroke="currentColor">
                       <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
                       <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
                       <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
@@ -123,8 +123,7 @@ const LoginForm = () => {
                       className="size-4 text-gray-400"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
+                      stroke="currentColor">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -151,16 +150,16 @@ const LoginForm = () => {
           </div>
 
           <button
+            disabled={isSubmitting}
             type="submit"
-            className="block w-full  bg-primary px-5 py-3 text-sm font-medium text-white"
-          >
+            className="block w-full  bg-primary px-5 py-3 text-sm font-medium text-white">
             تسجيل الدخول
           </button>
         </form>
         <DevTool control={control} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm
