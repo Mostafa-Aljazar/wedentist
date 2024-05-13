@@ -11,6 +11,7 @@ type Props = {
   children: React.ReactNode
 }
 
+export const dynamic = "force-dynamic"
 const layout = async ({ children }: Props) => {
   const session = await getServerSession(authOptions)
   if (!session) redirect("/login")

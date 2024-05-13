@@ -1,16 +1,20 @@
 import mongoose, { model, Schema } from "mongoose"
 
 export type Blog = {
+  doctor: string
   id: number
   title: string
   date: Date
   content: string
   preview: string
   coverImage?: string
+  slug: string
 }
 
-export const blogSchema = new Schema<Blog>(
+export const blogSchema = new Schema(
   {
+    doctor: { type: Schema.Types.ObjectId, ref: "Doctor", required: true },
+    slug: { type: String, required: true },
     title: { type: String, required: true },
     date: { type: Date, default: Date.now() },
     content: { type: String, required: true },
@@ -20,6 +24,6 @@ export const blogSchema = new Schema<Blog>(
   { timestamps: true },
 )
 
-const Blog = mongoose.models.Blog || model("Blog", blogSchema)
+const Blog = mongoose.models.Blog || model<Blog>("Blog", blogSchema)
 
 export default Blog
