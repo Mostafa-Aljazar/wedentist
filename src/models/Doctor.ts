@@ -1,4 +1,5 @@
-import mongoose, { Schema, model } from "mongoose"
+import mongoose, { model, Schema } from "mongoose"
+
 export type SocialMedia = {
   id: number
   platform: string
@@ -70,9 +71,9 @@ export const doctorSchema = new Schema<Doctor>(
     introduction: { type: String, required: true },
     education: { type: educationSchema, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 )
 
-const Doctor = mongoose.models.Doctor || model("Doctor", doctorSchema)
+const Doctor = mongoose.models.Doctor || model<Doctor>("Doctor", doctorSchema)
 
 export default Doctor

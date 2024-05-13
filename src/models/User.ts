@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose"
+import mongoose, { model, Schema } from "mongoose"
 
 export type User = {
   username: string
@@ -25,19 +25,15 @@ export const blogSchema = new Schema<User>(
       type: String,
       required: true,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now(),
-      immutable: true,
-    },
+
     password: {
       type: String,
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 )
 
-const User = mongoose.models.User || model("User", blogSchema)
+const User = mongoose.models.User || model<User>("User", blogSchema)
 
 export default User

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "../components/header";
 import { Providers } from "./providers";
 
+
 const cairo = Cairo({
   subsets: ["arabic"],
   weight: ["700", "600", "500", "400", "300"],
@@ -27,6 +28,7 @@ export default function RootLayout({
           {children}
         </Providers>
       </body>
+
     </html>
   );
 }

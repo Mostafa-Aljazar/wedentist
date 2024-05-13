@@ -6,6 +6,7 @@ import DeleteModal from "./articale-delete";
 
 type Props = {};
 
+
 const ArticlesView = async ({ slug }: { slug: string }) => {
   const blogs = data[slug as keyof typeof data];
   if (!blogs) notFound();
