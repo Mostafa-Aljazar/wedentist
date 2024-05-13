@@ -2,7 +2,6 @@ import { z } from "zod"
 
 export const doctorInfoSchema = z.object({
   name: z.string().min(1, "مطلوب"),
-  specialty: z.string().min(1, "مطلوب"),
   specialization: z.string().min(1, "مطلوب"),
   location: z.string().min(1, "مطلوب"),
   contact: z.object({

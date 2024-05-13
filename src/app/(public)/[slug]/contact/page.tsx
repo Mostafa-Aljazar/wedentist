@@ -1,12 +1,16 @@
 "use client"
-import Button from "@/components/button"
+
+import React from "react"
 import { cn } from "@/utils/cn"
 import { contactSchema } from "@/validation/contact-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
-import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
+
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import Button from "@/components/button"
 
 type Props = {
   params: {
@@ -32,9 +36,7 @@ const Page = ({ params: { slug } }: Props) => {
   })
 
   // handling login
-  const onSubmit: SubmitHandler<z.infer<typeof contactSchema>> = async (
-    data
-  ) => {
+  const onSubmit: SubmitHandler<z.infer<typeof contactSchema>> = async (data) => {
     try {
       const response = await axios.post(`/api/${slug}/contact`, data)
       reset()
@@ -47,33 +49,32 @@ const Page = ({ params: { slug } }: Props) => {
   }
 
   return (
-    <div className="bg-white border rounded-lg px-6 py-8  text-sm text-[#333] h-fit">
-      <h1 className="text-[30px] lg:text-[35px] mb-7">تواصل معي</h1>
+    <div className="h-fit rounded-lg border bg-white px-6  py-8 text-sm text-[#333]">
+      <h1 className="mb-7 text-[30px] lg:text-[35px]">تواصل معي</h1>
       <p className="pb-4">
-        نحن في انتظار رسائلكم واستفساراتكم. سواء كنتم بحاجة إلى مزيد من
-        المعلومات عن خدماتنا أو ترغبون في تحديد موعد لزيارتنا، فلا تترددوا في
-        الاتصال بنا. نحن هنا لخدمتكم بكل اهتمام واحترافية لضمان راحتكم ورضاكم
-        التام. يمكنكم التواصل معنا عبر الهاتف أو البريد الإلكتروني المدرج أدناه،
-        أو بزيارتنا شخصيا في العيادة. نحن في انتظاركم لنقدم لكم أفضل الخدمات
-        والرعاية الطبية في مجال طب الأسنان
+        نحن في انتظار رسائلكم واستفساراتكم. سواء كنتم بحاجة إلى مزيد من المعلومات عن
+        خدماتنا أو ترغبون في تحديد موعد لزيارتنا، فلا تترددوا في الاتصال بنا. نحن هنا
+        لخدمتكم بكل اهتمام واحترافية لضمان راحتكم ورضاكم التام. يمكنكم التواصل معنا
+        عبر الهاتف أو البريد الإلكتروني المدرج أدناه، أو بزيارتنا شخصيا في العيادة.
+        نحن في انتظاركم لنقدم لكم أفضل الخدمات والرعاية الطبية في مجال طب الأسنان
       </p>
       <form noValidate onSubmit={handleSubmit(onSubmit)} className=" space-y-4">
         <div>
           <label
             htmlFor="name"
-            className="block text-xs font-medium text-gray-700">
+            className="mb-2 block text-xs font-medium text-gray-700">
             الاسم
           </label>
 
-          <input
+          <Input
             {...register("name")}
             type="text"
             id="name"
             placeholder="اسمك بالكامل"
             className={cn(
-              "mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm",
+              "mt-1 w-full rounded-sm  border-gray-200 shadow-sm focus:ring-[none]  sm:text-sm",
               errors.name?.message &&
-                " border-red-600  focus:border-red-500 focus-within:border-red-500"
+                " border-red-600  focus-within:border-red-500 focus:border-red-500",
             )}
           />
           {errors.name?.message ? (
@@ -83,43 +84,41 @@ const Page = ({ params: { slug } }: Props) => {
         <div>
           <label
             htmlFor="email"
-            className="block text-xs font-medium text-gray-700">
+            className="mb-2 block text-xs font-medium text-gray-700">
             الإيميل
           </label>
 
-          <input
+          <Input
             {...register("email")}
             type="email"
             id="email"
             placeholder="john@example.com"
             className={cn(
-              "mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm",
+              "mt-1 w-full rounded-sm  border-gray-200 shadow-sm focus:ring-[none]  sm:text-sm",
               errors.email?.message &&
-                " border-red-600  focus:border-red-500 focus-within:border-red-500"
+                " border-red-600  focus-within:border-red-500 focus:border-red-500",
             )}
           />
           {errors.email?.message ? (
-            <span className=" text-sm text-red-500">
-              {errors.email.message}
-            </span>
+            <span className=" text-sm text-red-500">{errors.email.message}</span>
           ) : null}
         </div>
         <div>
           <label
             htmlFor="phone_number"
-            className="block text-xs font-medium text-gray-700">
+            className="mb-2 block text-xs font-medium text-gray-700">
             رقم الجوال
           </label>
 
-          <input
+          <Input
             {...register("phoneNumber")}
             type="text"
             id="phone_number"
             placeholder="5* *** ****"
             className={cn(
-              "mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm",
+              "mt-1 w-full rounded-sm  border-gray-200 shadow-sm focus:ring-[none]  sm:text-sm",
               errors.phoneNumber &&
-                " border-red-600  focus:border-red-500 focus-within:border-red-500"
+                " border-red-600  focus-within:border-red-500 focus:border-red-500",
             )}
           />
           {errors.phoneNumber ? (
@@ -131,25 +130,23 @@ const Page = ({ params: { slug } }: Props) => {
         <div>
           <label
             htmlFor="message"
-            className="block text-xs font-medium text-gray-700">
+            className="mb-2 block text-xs font-medium text-gray-700">
             الرسالة
           </label>
 
-          <textarea
+          <Textarea
             {...register("message")}
             id="message"
             name="message"
             placeholder="رسالتك"
             className={cn(
-              "mt-1 w-full focus:ring-[none]  border-gray-200 shadow-sm sm:text-sm  rounded-sm",
+              "mt-1 w-full rounded-sm  border-gray-200 shadow-sm focus:ring-[none]  sm:text-sm",
               errors.message &&
-                " border-red-600  focus:border-red-500 focus-within:border-red-500"
+                " border-red-600  focus-within:border-red-500 focus:border-red-500",
             )}
           />
           {errors.message ? (
-            <span className=" text-sm text-red-500">
-              {errors.message?.message}
-            </span>
+            <span className=" text-sm text-red-500">{errors.message?.message}</span>
           ) : null}
         </div>
         <Button

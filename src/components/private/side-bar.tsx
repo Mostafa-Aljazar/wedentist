@@ -40,7 +40,7 @@ export default function SideBar() {
                 size="icon"
                 className={cn(
                   "rounded-lg ",
-                  pathName === "/dashboard" && " bg-muted",
+                  pathName === `/${slug}/dashboard` && " bg-muted text-primary",
                 )}
                 aria-label="الرئيسية">
                 <Link href={`/${slug}/dashboard`}>
