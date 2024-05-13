@@ -2,9 +2,9 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useParams, usePathname } from "next/navigation"
 import { logo } from "@/assets"
-import { LogOut, SquareTerminal, Users } from "lucide-react"
+import { LogOut, Notebook, SquareTerminal, Users } from "lucide-react"
 import { signOut } from "next-auth/react"
 
 import { cn } from "@/lib/utils"
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/tooltip"
 
 export default function SideBar() {
+  const { slug } = useParams() as { slug: string }
   const pathName = usePathname()
   return (
     <aside className="inset-y fixed right-0  top-0 z-20 flex h-full flex-col border-l bg-white">
@@ -42,7 +43,7 @@ export default function SideBar() {
                   pathName === "/dashboard" && " bg-muted",
                 )}
                 aria-label="الرئيسية">
-                <Link href={"/dashboard"}>
+                <Link href={`/${slug}/dashboard`}>
                   <SquareTerminal className="size-5" />
                 </Link>
               </Button>
@@ -58,11 +59,11 @@ export default function SideBar() {
                 size="icon"
                 className={cn(
                   "rounded-lg ",
-                  pathName.includes("/dashboard/users") && " bg-muted",
+                  pathName.includes("/dashboard/blogs") && " bg-muted",
                 )}
                 aria-label="المقالات">
-                <Link href={"/dashboard/users"}>
-                  <Users className="size-5" />
+                <Link href={`/${slug}/dashboard/blogs`}>
+                  <Notebook className="size-5" />
                 </Link>
               </Button>
             </TooltipTrigger>
