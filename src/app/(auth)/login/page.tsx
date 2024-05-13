@@ -10,7 +10,7 @@ type Props = {}
 const page = async (props: Props) => {
   const session = await getServerSession(authOptions)
 
-  if (!session) redirect("/login")
+  if (session) redirect(`/${session.user.username}/dashboard`)
   return <LoginForm />
 }
 

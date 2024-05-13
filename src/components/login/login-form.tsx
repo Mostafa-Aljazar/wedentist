@@ -39,7 +39,7 @@ const LoginForm = () => {
             : "حصل خطأ ما",
         )
       reset()
-      router.push("/dashboard")
+      router.refresh()
     } catch (error: any) {
       console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ error:", error)
       setError("root", { message: error.message || "خطأ غير معروف" })
