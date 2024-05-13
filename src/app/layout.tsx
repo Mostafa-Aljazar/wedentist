@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={cairo.className + " bg-[#f0f0f0]"}>{children}</body>
+      <body className={cairo.className}>{children}</body>
     </html>
   )
 }
