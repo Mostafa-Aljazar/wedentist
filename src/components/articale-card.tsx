@@ -1,19 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react"
-import Link from "next/link"
-import { logo } from "@/assets"
+import { logo } from "@/assets";
+import { Blog } from "@/types/blogs-response";
+import Link from "next/link";
+import React from "react";
+import DeleteModal from "./articale-delete";
 
-import { Blog } from "@/types/blogs-response"
 
 type Props = Blog & {
-  slug: string
-}
+  slug: string;
+};
 
 const ArticleCard = ({ title, date, preview, slug, id, coverImage }: Props) => {
   return (
-    <Link className="block" href={`/${slug}/blogs/${id}`}>
-      <article className="flex   gap-4 rounded-lg border bg-white p-4 max-[550px]:flex-col  ">
-        <div className=" flex aspect-square w-[190px] shrink-0 items-center justify-center  overflow-hidden rounded bg-slate-50 max-[550px]:w-full">
+    <Link href={`/${slug}/blogs/${id}`} className="block">
+      <article className="flex   max-[550px]:flex-col gap-4 p-4 bg-white rounded-lg border  ">
+        <div className=" aspect-square max-[550px]:w-full w-[190px] shrink-0 bg-slate-50 flex  justify-center rounded overflow-hidden items-center">
+
           <img
             src={coverImage || logo.src}
             alt="cover"
@@ -21,15 +23,21 @@ const ArticleCard = ({ title, date, preview, slug, id, coverImage }: Props) => {
           />
         </div>
         <div className=" space-y-3 leading-tight">
-          <p className="text-[1.1rem] font-semibold  text-gray-900 lg:text-[1.38rem]">
-            {title}
-          </p>
-          <span className=" block text-xs text-[#aaaaaa]">{date}</span>
-          <p className="text-sm text-[#aaaaaa]">{preview}</p>
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-[1.1rem] lg:text-[1.38rem]  font-semibold text-gray-900">
+                {title}
+              </p>
+            </div>
+            <DeleteModal slug={slug} title={title} id={id} />
+          </div>
+          <span className=" text-[#aaaaaa] text-xs block">{date}</span>
+          <p className="text-[#aaaaaa] text-sm">{preview}</p>
+
         </div>
       </article>
     </Link>
-  )
-}
+  );
+};
 
-export default ArticleCard
+export default ArticleCard;
