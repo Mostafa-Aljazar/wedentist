@@ -1,12 +1,12 @@
 "use client"
-import React, { useState } from "react"
-import { useForm, SubmitHandler } from "react-hook-form"
-import { DevTool } from "@hookform/devtools"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { LoginFormSchema } from "@/validation/login-schema"
+import React, { useState } from "react"
 import Image from "next/image"
 import { logo } from "@/assets"
+import { LoginFormSchema } from "@/validation/login-schema"
+import { DevTool } from "@hookform/devtools"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 
 type FormValues = z.infer<typeof LoginFormSchema>
@@ -25,24 +25,21 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      console.log(
-        "🚀 ~ constonSubmit:SubmitHandler<FormValues>=async ~ data:",
-        data
-      )
+      console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>=async ~ data:", data)
 
       reset()
     } catch (error) {
       console.log(
         "🚀 ~ constonSubmit:SubmitHandler<FormValues>=async ~ error:",
-        error
+        error,
       )
     }
   }
 
   return (
-    <div className="mx-auto min-h-screen flex items-center max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 ">
-      <div className="mx-auto pt-6 w-full max-w-md   bg-white">
-        <Image className=" size-24 mx-auto" src={logo} alt="wedentis" />
+    <div className="max-w-screen-xl mx-auto flex min-h-screen items-center px-4 py-16 sm:px-6 lg:px-8 ">
+      <div className="mx-auto w-full max-w-md bg-white   pt-6">
+        <Image className=" mx-auto size-24" src={logo} alt="wedentis" />
 
         <form
           className="mb-0  space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
@@ -60,7 +57,7 @@ const LoginForm = () => {
             <div className="relative">
               <input
                 type="email"
-                className="w-full  border-gray-200 p-4 pe-12 text-sm shadow-sm "
+                className="w-full border-gray-200 p-4 pe-12 text-sm shadow-sm "
                 placeholder="Enter email"
                 {...register("email", { required: true })}
               />
@@ -83,7 +80,7 @@ const LoginForm = () => {
             </div>
 
             {errors.email && (
-              <span className="text-[12px] text-left text-red-500">
+              <span className="text-left text-[12px] text-red-500">
                 {errors.email?.message}
               </span>
             )}

@@ -1,10 +1,11 @@
 "use client"
-import { logo } from "@/assets"
-import { cn } from "@/utils/cn"
+
+import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
-import React from "react"
+import { logo } from "@/assets"
+import { cn } from "@/utils/cn"
 
 type Props = {}
 
@@ -12,9 +13,9 @@ const Header = (props: Props) => {
   const { slug } = useParams()
   const pathname = usePathname()
   return (
-    <header className="py-4 bg-white shadow-sm sticky top-0 z-30">
+    <header className="sticky top-0 z-30 bg-white py-4 shadow-sm">
       <div className="container">
-        <div className="flex  justify-between items-center">
+        <div className="flex  items-center justify-between">
           <nav>
             <ul className="flex gap-4 ">
               <li>
@@ -24,7 +25,7 @@ const Header = (props: Props) => {
                     "  duration-300  ",
                     pathname === `/${slug}`
                       ? "text-primary"
-                      : "text-secondary hover:text-primary"
+                      : "text-secondary hover:text-primary",
                   )}>
                   الرئيسية
                 </Link>
@@ -35,7 +36,7 @@ const Header = (props: Props) => {
                     "  duration-300 ",
                     pathname === `/${slug}/about`
                       ? " text-primary "
-                      : "text-secondary hover:text-primary"
+                      : "text-secondary hover:text-primary",
                   )}
                   href={`/${slug}/about`}>
                   نبذة تعريفية
@@ -47,7 +48,7 @@ const Header = (props: Props) => {
                     "  duration-300 ",
                     pathname === `/${slug}/contact`
                       ? "text-primary "
-                      : "text-secondary hover:text-primary"
+                      : "text-secondary hover:text-primary",
                   )}
                   href={`/${slug}/contact`}>
                   للتواصل

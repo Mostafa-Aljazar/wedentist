@@ -1,32 +1,62 @@
+import User, { type User as UserType } from "@/models/User"
+import type { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { z } from "zod"
 
-export const authOptions = {
+import dbConnect from "./db"
+
+// import bcrypt from 'bcrypt'
+
+const credentialSchema = z
+  .object({ username: z.string().min(1).max(50), password: z.string().min(1) })
+  .strict()
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
-      credentials: {
-        username: { label: "Username", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials, req) {
-        // const { username, password } = credentials;
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-        // You can also use the `req` object to obtain additional parameters
-        // (i.e., the request IP address)
+      credentials: {},
+      async authorize(c, req) {
+        try {
+          const credentials = credentialSchema.parse(c)
+          const { username, password } = credentials
 
-        // If no error and we have user data, return it
+          let doctor: (UserType & { _id: string }) | undefined | null
+          await dbConnect()
 
-        // Return null if user data could not be retrieved
-        return null
+          if (z.string().email().safeParse(username).success) {
+            doctor = await User.findOne({ email: username })
+          } else {
+            doctor = await User.findOne({ username })
+          }
+          if (!doctor) return null
+          // const comparPassword = await bcrypt.compare(password, doctor.password)
+          // if(!comparPassword) return null
+          if (doctor.password !== password) return null
+          return {
+            email: doctor.email,
+            username: doctor.username,
+            id: doctor._id,
+          }
+        } catch (error) {
+          return null
+        }
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...user, ...token }
+    },
+    async session({ session, token }) {
+      session.user = token as any
+      return session
+    },
+  },
+
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
+  },
 }

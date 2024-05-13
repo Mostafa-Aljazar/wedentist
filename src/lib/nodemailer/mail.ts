@@ -1,10 +1,11 @@
 import { contactSchema } from "@/validation/contact-schema"
-import { z } from "zod"
 import nodemailer from "nodemailer"
+import { z } from "zod"
+
 import { compileTemplate } from "../handlebars/complieTemplate"
 
 export async function sendMail(
-  args: z.infer<typeof contactSchema> & { to: string }
+  args: z.infer<typeof contactSchema> & { to: string },
 ) {
   // env
   const { SMIP_MAIL, SMIP_PASSWORD } = process.env

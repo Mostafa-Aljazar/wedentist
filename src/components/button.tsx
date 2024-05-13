@@ -1,7 +1,8 @@
 "use client"
-import { cn } from "@/utils/cn"
-import { useRouter } from "next/navigation"
+
 import React, { ButtonHTMLAttributes } from "react"
+import { useRouter } from "next/navigation"
+import { cn } from "@/utils/cn"
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string
@@ -15,8 +16,8 @@ const Button = ({ className, children, href, ...props }: Props) => {
     <button
       onClick={handleClick}
       className={cn(
-        "rounded bg-secondary hover:bg-primary duration-300 px-5 py-3 text-white ",
-        className
+        "rounded bg-secondary px-5 py-3 text-white duration-300 hover:bg-primary ",
+        className,
       )}
       {...props}>
       {children}

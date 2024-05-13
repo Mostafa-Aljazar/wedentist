@@ -1,7 +1,8 @@
 import React from "react"
-import ArticleCard from "./articale-card"
 import { notFound } from "next/navigation"
 import data from "@/content/data/blogs.json"
+
+import ArticleCard from "./articale-card"
 
 type Props = {}
 

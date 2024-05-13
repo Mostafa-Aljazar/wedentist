@@ -1,12 +1,13 @@
+import data from "@/content/data/data.json"
 import { contactSchema } from "@/validation/contact-schema"
 import { z } from "zod"
-import { sendMail } from "@/lib/nodemailer/mail"
+
 import { DoctorResponse } from "@/types/doctors-response"
-import data from "@/content/data/data.json"
+import { sendMail } from "@/lib/nodemailer/mail"
 
 export async function POST(
   req: Request,
-  { params: { slug } }: { params: { slug: string } }
+  { params: { slug } }: { params: { slug: string } },
 ) {
   try {
     const body = await req.json()

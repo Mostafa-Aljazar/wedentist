@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose"
+import mongoose, { model, Schema } from "mongoose"
 
 export type Blog = {
   id: number
@@ -17,7 +17,7 @@ export const blogSchema = new Schema<Blog>(
     preview: { type: String, required: true },
     coverImage: { type: String, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 )
 
 const Blog = mongoose.models.Blog || model("Blog", blogSchema)
