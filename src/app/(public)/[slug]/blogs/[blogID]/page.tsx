@@ -1,21 +1,26 @@
-import { notFound } from "next/navigation"
 import React from "react"
-import blogs from "@/content/data/blogs.json"
+import { notFound } from "next/navigation"
+import Blog from "@/models/Blog"
+
+import "react-quill/dist/quill.snow.css"
+
+import dbConnect from "@/lib/db"
 
 type Props = { params: { slug: string; blogID: string } }
 
 const Page = async ({ params }: Props) => {
-  const { slug, blogID } = params
+  const { blogID } = params
 
-  const blog = blogs[slug as keyof typeof blogs].find(
-    (e) => e.id + "" === blogID
-  )
+  await dbConnect()
+  const blog = await Blog.findById(blogID).exec()
   if (!blog) notFound()
 
   return (
-    <div
-      className="bg-white w-full border rounded-lg px-6 py-8  min-h-[calc(100vh-120px)] text-sm text-[#333] h-fit"
-      dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+    <div className="ql-snow">
+      <div
+        className="ql-editor h-fit min-h-[calc(100vh-120px)] w-full rounded-lg border  bg-white px-6 py-8 text-sm  text-[#333]"
+        dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+    </div>
   )
 }
 
