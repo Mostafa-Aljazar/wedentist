@@ -25,6 +25,9 @@ import { Textarea } from "../ui/textarea"
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 
+import { useParams } from "next/navigation"
+import axios from "axios"
+
 import { modules } from "@/lib/react-quill"
 
 type Props = {}
@@ -45,9 +48,16 @@ const BlogForm = (props: Props) => {
     resolver: zodResolver(blogFormSchema),
   })
 
+  const { slug } = useParams() as { slug: string }
+  console.log("🚀 ~ BlogForm ~ slug:", slug)
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-    } catch (error) {}
+      const response = await axios.post(`/api/${slug}/add-blog`, data)
+
+      reset()
+    } catch (error) {
+      console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ error:", error)
+    }
   }
 
   return (

@@ -4,8 +4,7 @@ import Doctor from "@/models/Doctor"
 
 import dbConnect from "@/lib/db"
 import { Button } from "@/components/ui/button"
-import ArticleCard from "@/components/articale-card"
-import ArticlesView from "@/components/articles-view"
+import BlogCard from "@/components/private/blog-card"
 
 export default async function Home({
   params: { slug, page },
@@ -22,8 +21,8 @@ export default async function Home({
     .limit(20)
     .populate("doctor")
     .exec()
-  const count = await Blog.countDocuments({ user: slug }).exec()
-  console.log("🚀 ~ count:", count)
+
+  const count = await Blog.countDocuments({ doctor: doctor._id }).exec()
   const pages = Math.ceil(count / 20)
   if (count === 0)
     return (
@@ -39,12 +38,21 @@ export default async function Home({
     )
   return (
     <section>
-      <Button variant="outline" className="px-10 ">
-        اضف مقال جديد
-      </Button>
+      <div className=" mb-10 flex  items-center justify-between ">
+        <h1 className="text-xl font-semibold  lg:text-3xl">جميع المقالات</h1>
+        <Button variant="outline" className="px-10 ">
+          <Link href={`/${slug}/dashboard/blogs/add`}>اضف مقال جديد</Link>
+        </Button>
+      </div>
       <div className=" space-y-6">
         {blogs.map((element, index) => {
-          return <ArticleCard slug={slug} {...element} key={index} />
+          return (
+            <BlogCard
+              slug={slug}
+              {...JSON.parse(JSON.stringify(element))}
+              key={index}
+            />
+          )
         })}
       </div>
     </section>

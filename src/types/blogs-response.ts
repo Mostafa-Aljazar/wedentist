@@ -3,9 +3,9 @@ export type BlogsResponse = {
 }
 
 export type Blog = {
-  id: number
+  _id: string
   title: string
-  date: string
+  createdAt: Date | string
   content: string
   preview: string
   coverImage?: string

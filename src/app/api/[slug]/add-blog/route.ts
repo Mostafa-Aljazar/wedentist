@@ -2,7 +2,8 @@ import { NextResponse } from "next/server"
 import Blog from "@/models/Blog"
 import Doctor from "@/models/Doctor"
 import { blogFormSchema } from "@/validation/blog"
-import * as DOMpurify from "dompurify"
+import DOMPurify from "dompurify"
+import { JSDOM } from "jsdom"
 import { getServerSession } from "next-auth"
 import { z } from "zod"
 
@@ -26,15 +27,21 @@ export async function POST(
     // connecting to DB and adding doctors
     await dbConnect()
     const doctor = await Doctor.findOne({ slug }).exec()
-    const cleanBlog = DOMpurify.sanitize(parsedBody.content)
+
+    const window = new JSDOM("").window
+    const purify = DOMPurify(window)
+
+    const cleanBlog = purify.sanitize(parsedBody.content)
     const blog = await Blog.create({
       ...parsedBody,
       content: cleanBlog,
       doctor: doctor._id,
+      coverImage:
+        parsedBody.coverImage ||
+        "https://wedentis.netlify.app/_next/static/media/WEDENTIS-LOGO-ORIGINAL.4102257e.png",
     })
     return NextResponse.json(blog, { status: 201 })
   } catch (error) {
-    console.log("🚀 ~ POST ~ error:", error)
     if (error instanceof z.ZodError) {
       const errors = error.errors.map((err) => ({
         field: err.path,

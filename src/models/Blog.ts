@@ -6,13 +6,11 @@ export type Blog = {
   content: string
   preview: string
   coverImage?: string
-  slug: string
 }
 
 export const blogSchema = new Schema(
   {
     doctor: { type: Schema.Types.ObjectId, ref: "Doctor", required: true },
-    slug: { type: String, required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },
     preview: { type: String, required: true },
