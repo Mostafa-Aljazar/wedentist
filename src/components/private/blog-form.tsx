@@ -61,25 +61,36 @@ const BlogForm = (props: Props) => {
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="mb-6 space-y-5">
               <div>
-                <Label htmlFor="blog-title">عنوان المقال</Label>
+                <Label htmlFor="blog-title" className="mb-2 block">
+                  عنوان المقال
+                </Label>
                 <Input id="blog-title" {...register("title")} />
               </div>
               <div>
-                <Label htmlFor="blog-preview">لمحة عن المقال</Label>
+                <Label htmlFor="blog-preview" className="mb-2 block">
+                  لمحة عن المقال
+                </Label>
                 <Textarea id="blog-preview" {...register("preview")} />
               </div>
-              <Controller
-                control={control}
-                name="content"
-                render={({ field }) => (
-                  <div dir="ltr" className=" ">
-                    <ReactQuill
-                      modules={modules}
-                      theme="snow"
-                      {...field}></ReactQuill>
-                  </div>
-                )}
-              />
+              <div>
+                <Label htmlFor="blog-content" className="mb-2 block">
+                  نص المقال
+                </Label>
+
+                <Controller
+                  control={control}
+                  name="content"
+                  render={({ field }) => (
+                    <div dir="ltr" className=" ">
+                      <ReactQuill
+                        id="blog-content"
+                        modules={modules}
+                        theme="snow"
+                        {...field}></ReactQuill>
+                    </div>
+                  )}
+                />
+              </div>
             </div>
             <Button
               isLoading={isSubmitting}
