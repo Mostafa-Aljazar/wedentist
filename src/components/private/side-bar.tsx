@@ -59,7 +59,7 @@ export default function SideBar() {
                 size="icon"
                 className={cn(
                   "rounded-lg ",
-                  pathName.includes("/dashboard/blogs") && " bg-muted",
+                  pathName.includes("/dashboard/blogs") && " bg-muted text-primary",
                 )}
                 aria-label="المقالات">
                 <Link href={`/${slug}/dashboard/blogs`}>

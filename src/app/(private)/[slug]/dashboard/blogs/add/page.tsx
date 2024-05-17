@@ -1,3 +1,5 @@
+import BlogForm from "@/components/private/blog-form"
+
 export default function Page() {
-  return <div></div>
+  return <BlogForm />
 }
