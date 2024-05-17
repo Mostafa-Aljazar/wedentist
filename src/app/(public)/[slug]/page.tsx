@@ -1,5 +1,5 @@
-import ArticlesView from "@/components/articles-view"
+import { redirect } from "next/navigation"
 
-export default function Home({ params }: { params: { slug: string } }) {
-  return <ArticlesView slug={params.slug} />
+export default function Page({ params: { slug } }: { params: { slug: string } }) {
+  return redirect(`/${slug}/1`)
 }

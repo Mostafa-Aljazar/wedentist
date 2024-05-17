@@ -1,13 +1,11 @@
-import Link from "next/link"
 import Blog from "@/models/Blog"
 import Doctor from "@/models/Doctor"
 
 import dbConnect from "@/lib/db"
-import { Button } from "@/components/ui/button"
 import Pagination from "@/components/ui/pagination"
-import BlogCard from "@/components/private/blog-card"
+import ArticleCard from "@/components/articale-card"
 
-export default async function Home({
+export default async function ArticlesView({
   params: { slug, page },
 }: {
   params: { slug: string; page: string }
@@ -15,11 +13,13 @@ export default async function Home({
   await dbConnect()
 
   const doctor = await Doctor.findOne({ slug }).exec()
+
   const blogs = await Blog.find({
     doctor: doctor._id,
   })
     .skip((parseInt(page) - 1) * 10)
     .limit(10)
+    .populate("doctor")
     .exec()
 
   const count = await Blog.countDocuments({ doctor: doctor._id }).exec()
@@ -27,34 +27,22 @@ export default async function Home({
   if (count === 0)
     return (
       <section>
-        <div className=" mb-10 flex  items-center justify-between ">
-          <h1 className="text-xl font-semibold  lg:text-3xl">جميع المقالات</h1>
-          <Button variant="outline" className="px-10 ">
-            <Link href={`/${slug}/dashboard/blogs/add`}>اضف مقال جديد</Link>
-          </Button>
-        </div>
         <p className="text-center text-lg">لا يوجد اي مقالات</p>
       </section>
     )
   return (
     <section>
-      <div className=" mb-10 flex  items-center justify-between ">
-        <h1 className="text-xl font-semibold  lg:text-3xl">جميع المقالات</h1>
-        <Button variant="outline" className="px-10 ">
-          <Link href={`/${slug}/dashboard/blogs/add`}>اضف مقال جديد</Link>
-        </Button>
-      </div>
       <div className=" space-y-6">
         {blogs.map((element, index) => {
           return (
-            <BlogCard
+            <ArticleCard
               slug={slug}
               {...JSON.parse(JSON.stringify(element))}
               key={index}
             />
           )
         })}
-        <Pagination pageCount={pages} url={`/${slug}/blogs/`} page={Number(page)} />
+        <Pagination pageCount={pages} url={`/${slug}/`} page={Number(page)} />
       </div>
     </section>
   )
