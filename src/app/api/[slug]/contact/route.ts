@@ -1,7 +1,9 @@
 import data from "@/content/data/data.json"
+import Doctor, { Doctor as DoctorType } from "@/models/Doctor"
 import { contactSchema } from "@/validation/contact-schema"
 import { z } from "zod"
 
+import dbConnect from "@/lib/db"
 import { sendMail } from "@/lib/nodemailer/mail"
 
 export async function POST(
@@ -9,18 +11,20 @@ export async function POST(
   { params: { slug } }: { params: { slug: string } },
 ) {
   try {
+    // request body
     const body = await req.json()
     const parsedBody = contactSchema.parse(body)
 
-    const doctor = data.doctors.find((d) => d.slug === slug)!
+    await dbConnect()
+    const doctor = (await Doctor.findOne({ slug }).exec()) as DoctorType
     if (!doctor) return new Response("doctor not found", { status: 404 })
 
     await sendMail({
       ...parsedBody,
       to:
-        process.env.NODE_ENV === "production"
-          ? "Iconsaad89@gmail.com"
-          : "xv.neer.business@gmail.com",
+        process.env.NODE_ENV === "development"
+          ? "xv.neer.business@gmail.com"
+          : doctor.personalInformation.contact.email,
     })
 
     return new Response("ok")

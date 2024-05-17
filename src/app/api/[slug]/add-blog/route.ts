@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"
+import Blog from "@/models/Blog"
 import Doctor from "@/models/Doctor"
-import { doctorInfoSchema } from "@/validation/doctor-info"
+import { blogFormSchema } from "@/validation/blog"
+import * as DOMpurify from "dompurify"
 import { getServerSession } from "next-auth"
 import { z } from "zod"
 
@@ -14,25 +16,25 @@ export async function POST(
   try {
     // handled authorization
     const session = await getServerSession(authOptions)
-    if (!session || slug !== session.user.username)
+    if (!session || session.user.username !== slug)
       return NextResponse.json({ error: "unauthorized" }, { status: 401 })
 
-    // request boyd
+    //   request body
     const body = await req.json()
-    const parsedBody = doctorInfoSchema.parse(body)
+    const parsedBody = blogFormSchema.parse(body)
 
-    // connecting to db and getting doctor data
+    // connecting to DB and adding doctors
     await dbConnect()
     const doctor = await Doctor.findOne({ slug }).exec()
-    if (!doctor) return new Response("doctor not found", { status: 404 })
-
-    // updating doctor data
-    doctor.personalInformation = parsedBody
-    await doctor.save()
-
-    return new Response("ok")
+    const cleanBlog = DOMpurify.sanitize(parsedBody.content)
+    const blog = await Blog.create({
+      ...parsedBody,
+      content: cleanBlog,
+      doctor: doctor._id,
+    })
+    return NextResponse.json(blog, { status: 201 })
   } catch (error) {
-    console.log("🚀 ~ error:", error)
+    console.log("🚀 ~ POST ~ error:", error)
     if (error instanceof z.ZodError) {
       const errors = error.errors.map((err) => ({
         field: err.path,
