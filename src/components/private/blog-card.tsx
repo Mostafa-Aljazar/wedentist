@@ -39,6 +39,13 @@ const BlogCard = ({ title, createdAt, preview, slug, _id, coverImage }: Props) =
       setIsLoading(false)
     }
   }
+  const handleGoToEditPage: React.MouseEventHandler<HTMLButtonElement> = async (
+    e,
+  ) => {
+    e.preventDefault()
+    e.stopPropagation()
+    router.push(`/${slug}/dashboard/blogs/edit/${_id}`)
+  }
   return (
     <Link href={`/${slug}/blogs/${_id}`} className="block">
       <article className="flex   gap-4 rounded-lg border bg-white p-4 max-[550px]:flex-col  ">
@@ -62,13 +69,22 @@ const BlogCard = ({ title, createdAt, preview, slug, _id, coverImage }: Props) =
           </span>
           <p className="text-sm text-[#aaaaaa]">{preview}</p>
         </div>
-        <div className=" shrink-0">
+        <div className=" shrink-0 space-y-5">
           <Button
             isLoading={isLoading}
             onClick={handleDelete}
             type="button"
+            className="block"
             variant="destructive">
             حذف المقال
+          </Button>
+
+          <Button
+            onClick={handleGoToEditPage}
+            className=" block"
+            type="button"
+            variant="outline">
+            تعديل المقال
           </Button>
         </div>
       </article>

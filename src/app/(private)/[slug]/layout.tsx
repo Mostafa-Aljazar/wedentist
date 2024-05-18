@@ -9,12 +9,15 @@ import TopBar from "@/components/private/top-bar"
 
 type Props = {
   children: React.ReactNode
+  params: {
+    slug: string
+  }
 }
 
 export const dynamic = "force-dynamic"
-const layout = async ({ children }: Props) => {
+const layout = async ({ children, params: { slug } }: Props) => {
   const session = await getServerSession(authOptions)
-  if (!session) redirect("/login")
+  if (!session || session.user.username !== slug) redirect("/login")
   return (
     <div className="grid h-screen w-full pr-[56px] pt-[56px]">
       <SideBar />

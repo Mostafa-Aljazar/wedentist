@@ -1,15 +1,16 @@
 "use client"
 
 import React from "react"
+import { useParams } from "next/navigation"
 import { blogFormSchema } from "@/validation/blog"
 import { DevTool } from "@hookform/devtools"
 import { zodResolver } from "@hookform/resolvers/zod"
-import ReactQuill from "react-quill"
-
-import "react-quill/dist/quill.snow.css"
-
+import axios from "axios"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import ReactQuill from "react-quill"
 import { z } from "zod"
+
+import { modules } from "@/lib/react-quill"
 
 import { Button } from "../ui/button"
 import {
@@ -23,21 +24,16 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Textarea } from "../ui/textarea"
 
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
-
-import { useParams } from "next/navigation"
-import axios from "axios"
-
-import { modules } from "@/lib/react-quill"
-
-type Props = {}
+import "react-quill/dist/quill.snow.css"
 
 type FormValues = z.infer<typeof blogFormSchema>
+type Props = {
+  blog?: FormValues
+}
 
-const BlogForm = (props: Props) => {
+const BlogForm = ({ blog }: Props) => {
   // handled blog state using react hook form
   const {
-    watch,
     register,
     reset,
     formState: { errors, isSubmitting },
@@ -46,15 +42,22 @@ const BlogForm = (props: Props) => {
     control,
   } = useForm<FormValues>({
     resolver: zodResolver(blogFormSchema),
+    defaultValues: blog ? { ...blog } : {},
   })
 
-  const { slug } = useParams() as { slug: string }
-  console.log("🚀 ~ BlogForm ~ slug:", slug)
+  const { slug, blogId } = useParams() as { slug: string; blogId: string }
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const response = await axios.post(`/api/${slug}/add-blog`, data)
-
-      reset()
+      if (!blog) {
+        const response = await axios.post(`/api/${slug}/add-blog`, data)
+        reset()
+        return
+      }
+      const response = await axios.post(`/api/${slug}/edit-blog/${blogId}`, data)
+      console.log(
+        "🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ response:",
+        response,
+      )
     } catch (error) {
       console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ error:", error)
     }
@@ -64,8 +67,10 @@ const BlogForm = (props: Props) => {
     <>
       <Card className="">
         <CardHeader>
-          <CardTitle>كتابة مقال</CardTitle>
-          <CardDescription>يمكنك كتابة مقال جديد</CardDescription>
+          <CardTitle>{blog ? "تعديل المقال" : " كتابة مقال"}</CardTitle>
+          <CardDescription>
+            {blog ? "يمكنك تعديل المفال " : "يمكنك كتابة مقال جديد"}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -106,7 +111,7 @@ const BlogForm = (props: Props) => {
               isLoading={isSubmitting}
               type="submit"
               className=" bg-black px-10 hover:bg-black/90">
-              اضافة
+              {blog ? "تعديل" : "اضافة"}
             </Button>
           </form>
         </CardContent>
