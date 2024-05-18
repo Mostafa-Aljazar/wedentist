@@ -26,6 +26,10 @@ import { Textarea } from "../ui/textarea"
 
 import "react-quill/dist/quill.snow.css"
 
+import { toast } from "sonner"
+
+import { Toaster } from "../ui/sonner"
+
 type FormValues = z.infer<typeof blogFormSchema>
 type Props = {
   blog?: FormValues
@@ -39,6 +43,7 @@ const BlogForm = ({ blog }: Props) => {
     formState: { errors, isSubmitting },
     handleSubmit,
     setValue,
+    setError,
     control,
   } = useForm<FormValues>({
     resolver: zodResolver(blogFormSchema),
@@ -51,15 +56,14 @@ const BlogForm = ({ blog }: Props) => {
       if (!blog) {
         const response = await axios.post(`/api/${slug}/add-blog`, data)
         reset()
+        toast.success("تمت العملية بنجاح")
         return
       }
       const response = await axios.post(`/api/${slug}/edit-blog/${blogId}`, data)
-      console.log(
-        "🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ response:",
-        response,
-      )
-    } catch (error) {
-      console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ error:", error)
+      toast.success("تمت العملية بنجاح")
+    } catch (error: any) {
+      setError("root", error?.message || "حصل مشكلة ما")
+      toast.error("فشلت العملية")
     }
   }
 
@@ -107,12 +111,18 @@ const BlogForm = ({ blog }: Props) => {
                 />
               </div>
             </div>
+
             <Button
               isLoading={isSubmitting}
               type="submit"
               className=" bg-black px-10 hover:bg-black/90">
               {blog ? "تعديل" : "اضافة"}
             </Button>
+            {errors.root ? (
+              <span className="block py-2 text-sm text-red-500">
+                {errors.root.message}
+              </span>
+            ) : null}
           </form>
         </CardContent>
       </Card>
