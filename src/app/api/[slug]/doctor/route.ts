@@ -13,6 +13,5 @@ export async function GET(
     return NextResponse.json(doctor)
   } catch (error) {
     return new Response("failed", { status: 500 })
-    // console.log("🚀 ~ GET ~ error:", error)
   }
 }

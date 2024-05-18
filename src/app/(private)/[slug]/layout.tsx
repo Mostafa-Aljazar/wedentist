@@ -1,8 +1,11 @@
 import React from "react"
 import { redirect } from "next/navigation"
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 import { getServerSession } from "next-auth"
+import { extractRouterConfig } from "uploadthing/server"
 
 import { authOptions } from "@/lib/next-auth"
+import { ourFileRouter } from "@/lib/uploadthing/core"
 import { Toaster } from "@/components/ui/sonner"
 import SideBar from "@/components/private/side-bar"
 import TopBar from "@/components/private/top-bar"
@@ -22,6 +25,15 @@ const layout = async ({ children, params: { slug } }: Props) => {
     <div className="grid h-screen w-full pr-[56px] pt-[56px]">
       <SideBar />
       <TopBar />
+      <NextSSRPlugin
+        /**
+         * The `extractRouterConfig` will extract **only** the route configs
+         * from the router to prevent additional information from being
+         * leaked to the client. The data passed to the client is the same
+         * as if you were to fetch `/api/uploadthing` directly.
+         */
+        routerConfig={extractRouterConfig(ourFileRouter)}
+      />
       <div className="p-4 lg:p-8">{children}</div>
       <Toaster />
     </div>

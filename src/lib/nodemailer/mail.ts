@@ -31,5 +31,4 @@ export async function sendMail(
     subject: `${args.name} يريد التواصل معك`,
     html: htmlBody,
   })
-  console.log("🚀 ~ sendMail:", sendMail)
 }

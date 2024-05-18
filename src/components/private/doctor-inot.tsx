@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 
+import CustomUploadBtn from "../ui/upload-button"
+
 type FormValues = z.infer<typeof doctorInfoSchema>
 export default function DoctorInfo({
   doctor: {
@@ -45,7 +47,6 @@ export default function DoctorInfo({
       contact,
     },
   })
-  console.log("🚀 ~ errors:", errors)
   const { fields, append, remove } = useFieldArray({
     name: "contact.socialMedia", // unique name for your Field Array
     control,
@@ -78,6 +79,7 @@ export default function DoctorInfo({
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} noValidate dir="ltr" lang="en">
             <div className=" mb-4 space-y-4">
+              <CustomUploadBtn />
               <Input {...register("name")} placeholder="الاسم" />
               <Input {...register("specialization")} placeholder="التخصص" />
               <Input {...register("location")} placeholder="العنوان" />

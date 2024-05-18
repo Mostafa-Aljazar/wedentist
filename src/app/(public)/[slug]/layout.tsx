@@ -13,7 +13,6 @@ type Props = {
 }
 
 export default async function layout({ children, params }: Props) {
-  console.log(process.env.NEXT_PUBLIC_BASE_URL)
   const { slug } = params
   await dbConnect()
   const doctor = (await Doctor.findOne({ slug })) as DoctorType
