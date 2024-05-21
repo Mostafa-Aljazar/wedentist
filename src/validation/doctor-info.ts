@@ -15,4 +15,5 @@ export const doctorInfoSchema = z.object({
       }),
     ),
   }),
+  image: z.string().url(),
 })

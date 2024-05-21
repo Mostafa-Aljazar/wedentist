@@ -1,23 +1,20 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import React from "react"
-import Image from "next/image"
-import { asrar, mesfer, rayan } from "@/assets"
 import { type Doctor } from "@/models/Doctor"
 import { Instagram, MapPin, Phone } from "lucide-react"
 
 type Props = {
   data: Doctor
 }
-const images = [mesfer, rayan, asrar] as const
 const DoctorCard = ({ data }: Props) => {
   return (
     <div className="space-y-5 rounded  border bg-white    p-5  text-sm ">
       <div className="text-center ">
         <div className="mx-auto mb-7 aspect-square h-[126px] w-[126px] overflow-hidden rounded-full">
-          <Image
-            // @ts-ignore
-            src={images[data.id - 1]}
+          <img
+            src={data.image}
             alt={data.personalInformation.name}
             className="h-full w-full object-cover"
           />

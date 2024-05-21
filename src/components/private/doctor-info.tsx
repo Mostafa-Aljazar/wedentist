@@ -1,12 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useParams } from "next/navigation"
 import { type Doctor } from "@/models/Doctor"
+import { UploadDropzone } from "@/utils/uploadthing"
 import { doctorInfoSchema } from "@/validation/doctor-info"
 import { DevTool } from "@hookform/devtools"
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
-import { Trash2 } from "lucide-react"
+import { Trash2, X } from "lucide-react"
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -32,10 +34,11 @@ export default function DoctorInfo({
   doctor: Doctor
 }) {
   const {
+    watch,
     register,
     handleSubmit,
     control,
-    reset,
+    setValue,
     setError,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
@@ -79,7 +82,45 @@ export default function DoctorInfo({
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} noValidate dir="ltr" lang="en">
             <div className=" mb-4 space-y-4">
-              <CustomUploadBtn />
+              <div className="flex flex-col items-center justify-between p-4 ">
+                {watch("image") ? (
+                  <div className="  relative  flex aspect-square w-[190px] shrink-0 items-center justify-center  overflow-hidden rounded bg-slate-50 max-[550px]:w-full">
+                    <Button
+                      onClick={() => {
+                        setValue("image", "")
+                      }}
+                      variant="outline"
+                      className=" absolute right-0 top-0 size-6 rounded-full p-0"
+                      size="sm">
+                      <X className=" size-4" />
+                    </Button>
+                    <img
+                      src={watch("image")}
+                      alt="cover"
+                      className=" h-full w-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <UploadDropzone
+                    className="w-full"
+                    endpoint="blogImage"
+                    onClientUploadComplete={(res) => {
+                      setValue("image", res[0].url)
+                    }}
+                    onUploadError={(error: Error) => {
+                      setError("image", { message: "file not uploaded" })
+                    }}
+                    config={{
+                      mode: "auto",
+                    }}
+                  />
+                )}
+                {errors.image ? (
+                  <span className=" text-sm text-red-500">
+                    {errors.image.message}
+                  </span>
+                ) : null}
+              </div>
               <Input {...register("name")} placeholder="الاسم" />
               <Input {...register("specialization")} placeholder="التخصص" />
               <Input {...register("location")} placeholder="العنوان" />

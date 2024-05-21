@@ -6,6 +6,7 @@ export default function CustomUploadBtn() {
   return (
     <main className="flex flex-col items-center justify-between p-4 ">
       <UploadDropzone
+        className="w-full"
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           // Do something with the response

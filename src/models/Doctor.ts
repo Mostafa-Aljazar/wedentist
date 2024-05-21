@@ -25,6 +25,7 @@ export type Education = {
   GAP: string
 }
 export type Doctor = {
+  image: string
   slug: string
   personalInformation: PersonalInformation
   skills: string[]
@@ -65,6 +66,10 @@ export const educationSchema = new Schema<Education>({
 // Doctor Schema
 export const doctorSchema = new Schema<Doctor>(
   {
+    image: {
+      type: String,
+      require,
+    },
     slug: { type: String, required: true, unique: true },
     personalInformation: { type: personalInformationSchema, required: true },
     skills: [{ type: String, required: true }],

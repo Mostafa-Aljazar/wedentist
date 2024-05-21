@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import Doctor, { type Doctor as DoctorType } from "@/models/Doctor"
 
 import dbConnect from "@/lib/db"
-import DoctorInfo from "@/components/private/doctor-inot"
+import DoctorInfo from "@/components/private/doctor-info"
 
 type Props = { params: { slug: string } }
 

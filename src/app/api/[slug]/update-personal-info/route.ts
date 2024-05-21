@@ -27,6 +27,8 @@ export async function POST(
     if (!doctor) return new Response("doctor not found", { status: 404 })
 
     // updating doctor data
+    doctor.image = parsedBody.image
+
     doctor.personalInformation = parsedBody
     await doctor.save()
 

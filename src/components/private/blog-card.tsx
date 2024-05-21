@@ -25,7 +25,7 @@ const BlogCard = ({ title, createdAt, preview, slug, _id, coverImage }: Props) =
     try {
       setIsLoading(true)
       if (window.confirm("هل انت متاكد من حزف المقال")) {
-        await axios.delete(`/api/${slug}/delete-blog/${_id}`)
+        await axios.delete(`/api/${slug}/blogs/delete/${_id}`)
 
         router.refresh()
       }
@@ -74,7 +74,7 @@ const BlogCard = ({ title, createdAt, preview, slug, _id, coverImage }: Props) =
             isLoading={isLoading}
             onClick={handleDelete}
             type="button"
-            className="block"
+            className="block shrink-0"
             variant="destructive">
             حذف المقال
           </Button>

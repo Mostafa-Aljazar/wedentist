@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import React from "react"
@@ -26,6 +27,8 @@ import { Textarea } from "../ui/textarea"
 
 import "react-quill/dist/quill.snow.css"
 
+import { UploadDropzone } from "@/utils/uploadthing"
+import { X } from "lucide-react"
 import { toast } from "sonner"
 
 import { Toaster } from "../ui/sonner"
@@ -38,6 +41,7 @@ type Props = {
 const BlogForm = ({ blog }: Props) => {
   // handled blog state using react hook form
   const {
+    watch,
     register,
     reset,
     formState: { errors, isSubmitting },
@@ -54,12 +58,12 @@ const BlogForm = ({ blog }: Props) => {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       if (!blog) {
-        const response = await axios.post(`/api/${slug}/add-blog`, data)
+        const response = await axios.post(`/api/${slug}/blogs/add`, data)
         reset()
         toast.success("تمت العملية بنجاح")
         return
       }
-      const response = await axios.post(`/api/${slug}/edit-blog/${blogId}`, data)
+      const response = await axios.post(`/api/${slug}/blogs/edit/${blogId}`, data)
       toast.success("تمت العملية بنجاح")
     } catch (error: any) {
       setError("root", error?.message || "حصل مشكلة ما")
@@ -70,20 +74,58 @@ const BlogForm = ({ blog }: Props) => {
   return (
     <>
       <Card className="">
-        <CardHeader>
-          <CardTitle>{blog ? "تعديل المقال" : " كتابة مقال"}</CardTitle>
-          <CardDescription>
-            {blog ? "يمكنك تعديل المفال " : "يمكنك كتابة مقال جديد"}
-          </CardDescription>
-        </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <div className="flex flex-col items-center justify-between p-4 ">
+              {watch("coverImage") ? (
+                <div className=" relative  flex aspect-square w-[190px] shrink-0 items-center justify-center  overflow-hidden rounded bg-slate-50 max-[550px]:w-full">
+                  <Button
+                    onClick={() => {
+                      setValue("coverImage", "")
+                    }}
+                    variant="outline"
+                    className=" absolute right-0 top-0 size-6 rounded-full p-0"
+                    size="sm">
+                    <X className=" size-4" />
+                  </Button>
+                  <img
+                    src={watch("coverImage")}
+                    alt="cover"
+                    className=" h-full w-full object-cover"
+                  />
+                </div>
+              ) : (
+                <UploadDropzone
+                  className="w-full"
+                  endpoint="blogImage"
+                  onClientUploadComplete={(res) => {
+                    setValue("coverImage", res[0].url)
+                  }}
+                  onUploadError={(error: Error) => {
+                    setError("coverImage", { message: "file not uploaded" })
+                  }}
+                  config={{
+                    mode: "auto",
+                  }}
+                />
+              )}
+              {errors.coverImage ? (
+                <span className=" text-sm text-red-500">
+                  {errors.coverImage.message}
+                </span>
+              ) : null}
+            </div>
+
             <div className="mb-6 space-y-5">
               <div>
                 <Label htmlFor="blog-title" className="mb-2 block">
                   عنوان المقال
                 </Label>
-                <Input id="blog-title" {...register("title")} />
+                <Input
+                  error={errors.title?.message}
+                  id="blog-title"
+                  {...register("title")}
+                />
               </div>
               <div>
                 <Label htmlFor="blog-preview" className="mb-2 block">
