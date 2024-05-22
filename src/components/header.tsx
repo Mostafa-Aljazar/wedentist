@@ -23,7 +23,7 @@ const Header = (props: Props) => {
                   href={`/${slug}`}
                   className={cn(
                     "  duration-300  ",
-                    pathname === `/${slug}`
+                    pathname !== `/${slug}/about` && pathname !== `/${slug}/contact`
                       ? "text-primary"
                       : "text-[#3e4444] hover:text-primary",
                   )}>
