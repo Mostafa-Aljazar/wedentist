@@ -26,7 +26,7 @@ export default function SideBar() {
           className="overflow-hidden  bg-white hover:bg-white"
           size="icon"
           aria-label="Home">
-          <Link href={"/"}>
+          <Link href={"/" + slug}>
             <Image src={logo} alt="logo" className=" size-7" />
           </Link>
         </Button>
