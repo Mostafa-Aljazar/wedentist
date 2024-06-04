@@ -16,9 +16,9 @@ const Page = async ({ params }: Props) => {
   if (!blog) notFound()
 
   return (
-    <div className="ql-snow">
+    <div className="ql-snow w-full grow">
       <div
-        className="ql-editor h-fit min-h-[calc(100vh-120px)] w-full rounded-lg border  bg-white px-6 py-8 text-sm  text-[#333]"
+        className="ql-editor h-fit min-h-[calc(100vh-120px)]  w-full grow  rounded-lg border bg-white px-6  py-8 text-sm text-[#333]"
         dangerouslySetInnerHTML={{ __html: blog.content }}></div>
     </div>
   )

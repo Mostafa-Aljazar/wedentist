@@ -16,7 +16,7 @@ const DoctorCard = ({ data }: Props) => {
           <img
             src={data.image}
             alt={data.personalInformation.name}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-[0,18%]"
           />
         </div>
         <p className=" mb-1 text-xl font-semibold text-[#333] ">

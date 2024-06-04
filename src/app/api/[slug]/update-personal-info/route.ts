@@ -32,7 +32,7 @@ export async function POST(
     doctor.personalInformation = parsedBody
     await doctor.save()
 
-    return new Response("ok")
+    return NextResponse.json(doctor)
   } catch (error) {
     console.log("🚀 ~ error:", error)
     if (error instanceof z.ZodError) {
