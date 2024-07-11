@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import { Cairo } from "next/font/google"
+import { Tajawal } from "next/font/google"
 
 import "./globals.css"
 
-const cairo = Cairo({
+const tajawl = Tajawal({
   subsets: ["arabic"],
-  weight: ["700", "600", "500", "400", "300"],
+  weight: ["300", "400", "500", "700", "800"],
 })
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={cairo.className}>{children}</body>
+      <body className={tajawl.className}>{children}</body>
     </html>
   )
 }

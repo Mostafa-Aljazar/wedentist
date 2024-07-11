@@ -129,7 +129,7 @@ const BlogForm = ({ blog }: Props) => {
               </div>
               <div>
                 <Label htmlFor="blog-preview" className="mb-2 block">
-                  لمحة عن المقال
+                  نبذة عن المقال
                 </Label>
                 <Textarea id="blog-preview" {...register("preview")} />
               </div>
