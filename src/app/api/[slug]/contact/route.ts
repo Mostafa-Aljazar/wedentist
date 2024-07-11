@@ -19,12 +19,15 @@ export async function POST(
     const doctor = (await Doctor.findOne({ slug }).exec()) as DoctorType
     if (!doctor) return new Response("doctor not found", { status: 404 })
 
+    const to =
+      process.env.NODE_ENV === "development"
+        ? "xv.neer.business@gmail.com"
+        : "xv.neer.business@gmail.com"
+    // : doctor.personalInformation.contact.email
+
     await sendMail({
       ...parsedBody,
-      to:
-        process.env.NODE_ENV === "development"
-          ? "xv.neer.business@gmail.com"
-          : doctor.personalInformation.contact.email,
+      to,
     })
 
     return new Response("ok")
