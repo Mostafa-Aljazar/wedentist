@@ -17,6 +17,7 @@ export default async function ArticlesView({
   const blogs = await Blog.find({
     doctor: doctor._id,
   })
+    .sort({ createdAt: -1 })
     .skip((parseInt(page) - 1) * 10)
     .limit(10)
     .populate("doctor")
