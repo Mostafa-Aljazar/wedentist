@@ -3,7 +3,32 @@
 
 import React from "react"
 import { type Doctor } from "@/models/Doctor"
-import { Instagram, MapPin, Phone } from "lucide-react"
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  MapPin,
+  Phone,
+  Twitter,
+  Youtube,
+} from "lucide-react"
+
+const TikTok = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 448 512"
+    className={className + " fill-primary "}>
+    <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z" />
+  </svg>
+)
+const SocialMedia = {
+  tiktok: TikTok,
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: Linkedin,
+  twitter: Twitter,
+  youtube: Youtube,
+}
 
 type Props = {
   data: Doctor
@@ -45,14 +70,15 @@ const DoctorCard = ({ data }: Props) => {
           {data.personalInformation.contact.phoneNumber}
         </div>
         {data.personalInformation.contact.socialMedia.map((e, i) => {
+          const Icon =
+            SocialMedia[e.platform.toLowerCase() as keyof typeof SocialMedia]
           return (
             <a
               target="_blank"
               href={e.link}
               key={e.id}
               className="flex cursor-pointer items-center gap-1 text-[#919191] duration-200 hover:text-[#333]">
-              <Instagram className=" w-4  shrink-0 text-primary" />
-
+              <Icon className=" w-4  shrink-0 text-primary" />
               {e.user}
             </a>
           )
