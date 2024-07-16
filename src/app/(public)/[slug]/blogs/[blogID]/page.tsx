@@ -1,10 +1,35 @@
 import React from "react"
 import { notFound } from "next/navigation"
-import Blog from "@/models/Blog"
+import Blog, { Blog as BlogType } from "@/models/Blog"
 
 import "react-quill/dist/quill.snow.css"
 
+import { Metadata } from "next"
+
 import dbConnect from "@/lib/db"
+
+type MetadataProps = {
+  params: { blogID: string }
+}
+
+export async function generateMetadata({
+  params,
+}: MetadataProps): Promise<Metadata> {
+  // read route params
+  const blogID = params.blogID
+
+  await dbConnect()
+
+  const blog = (await Blog.findById(blogID).exec()) as BlogType
+
+  return {
+    title: blog.title,
+    description: blog.preview,
+    openGraph: {
+      images: [blog.coverImage || ""],
+    },
+  }
+}
 
 type Props = { params: { slug: string; blogID: string } }
 

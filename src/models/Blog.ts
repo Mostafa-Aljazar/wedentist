@@ -1,14 +1,14 @@
 import mongoose, { model, Schema } from "mongoose"
 
 export type Blog = {
-  doctor: string
+  doctor: typeof Schema.Types.ObjectId
   title: string
   content: string
   preview: string
   coverImage?: string
 }
 
-export const blogSchema = new Schema(
+export const blogSchema = new Schema<Blog>(
   {
     doctor: { type: Schema.Types.ObjectId, ref: "Doctor", required: true },
     title: { type: String, required: true },

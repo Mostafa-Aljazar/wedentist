@@ -1,10 +1,31 @@
+import { Metadata, ResolvingMetadata } from "next"
 import Blog from "@/models/Blog"
-import Doctor from "@/models/Doctor"
+import Doctor, { type Doctor as DoctorType } from "@/models/Doctor"
 
 import dbConnect from "@/lib/db"
 import Pagination from "@/components/ui/pagination"
 import ArticleCard from "@/components/articale-card"
 
+type Props = {
+  params: { slug: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // read route params
+  const slug = params.slug
+
+  await dbConnect()
+
+  const doctor = (await Doctor.findOne({ slug }).exec()) as DoctorType
+
+  return {
+    title: doctor.personalInformation.name,
+    description: doctor.introduction,
+    openGraph: {
+      images: [doctor.image],
+    },
+  }
+}
 export default async function ArticlesView({
   params: { slug, page },
 }: {
