@@ -7,7 +7,7 @@ const OurView = (props: Props) => {
     <section>
       <div className="container flex min-h-screen items-center text-[#3d4444]">
         <div className="grow space-y-20 py-28  text-center">
-          <p className=" text-4xl/relaxed font-semibold  ">
+          <p className=" text-3xl/relaxed font-semibold lg:text-4xl/relaxed  ">
             نؤمن بقوة الفكر السعودي وابداعاته
             <br />
             ونسعى ان نكون بدورنا محركاً لنجاح هذا الفكر الواعد

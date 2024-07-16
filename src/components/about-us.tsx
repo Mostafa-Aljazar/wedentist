@@ -12,7 +12,7 @@ const AboutUs = (props: Props) => {
               من نحن؟
             </span>
           </h2>
-          <p className="py-28 text-center text-4xl font-semibold text-[#3d4444]">
+          <p className="py-28 text-center text-3xl/relaxed font-semibold text-[#3d4444] lg:text-4xl/relaxed">
             مؤسسة تسويقية سعودية الهوية بقدرات عالمية
             <br />
             نقدملك خدمات تسويقية بأفكار رهيبة تناسب أهدافك
