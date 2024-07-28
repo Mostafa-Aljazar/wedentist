@@ -7,12 +7,11 @@ import { cn } from "@/utils/cn"
 import { contactSchema } from "@/validation/contact-schema"
 import { DevTool } from "@hookform/devtools"
 import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
-
-import { Button } from "./ui/button"
 
 type FormValues = z.infer<typeof contactSchema>
 
@@ -20,12 +19,10 @@ type Props = {}
 
 const ContactUS = (props: Props) => {
   const {
-    watch,
     register,
     reset,
     formState: { errors, isSubmitting },
     handleSubmit,
-    setValue,
     setError,
     control,
   } = useForm<FormValues>({
@@ -35,11 +32,11 @@ const ContactUS = (props: Props) => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      console.log("data: ", data)
+      await axios.post("/api/main/contact", data)
       reset()
       toast.success("تمت العملية بنجاح")
     } catch (error: any) {
-      setError("root", error?.message || "حصل مشكلة ما")
+      setError("root", { message: error?.message || "حصل مشكلة ما" })
       toast.error("فشلت العملية")
     }
   }
@@ -113,6 +110,7 @@ const ContactUS = (props: Props) => {
               {errors.root.message}
             </span>
           ) : null}
+          <DevTool control={control} />
         </form>
       </div>
     </section>

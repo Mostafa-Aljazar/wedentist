@@ -1,4 +1,5 @@
 import data from "@/content/data/data.json"
+import Contact from "@/models/Contact"
 import Doctor, { Doctor as DoctorType } from "@/models/Doctor"
 import { contactSchema } from "@/validation/contact-schema"
 import { z } from "zod"
@@ -16,6 +17,24 @@ export async function POST(
     const parsedBody = contactSchema.parse(body)
 
     await dbConnect()
+
+    if (slug === "main") {
+      await Contact.create({
+        ...parsedBody,
+      })
+      const to =
+        process.env.NODE_ENV === "development"
+          ? "xv.neer.business@gmail.com"
+          : process.env.SMIP_MAIL!
+
+      await sendMail({
+        ...parsedBody,
+        to,
+      })
+
+      return new Response("ok")
+    }
+
     const doctor = (await Doctor.findOne({ slug }).exec()) as DoctorType
     if (!doctor) return new Response("doctor not found", { status: 404 })
 
