@@ -55,7 +55,11 @@ const DoctorCard = ({ data, destination }: Props) => {
         </span>
       </div>
 
-      <div className="ml-auto h-[1.5px] w-2/3 bg-gray-300"></div>
+      <div
+        className={cn(
+          " h-[1.5px] w-2/3 bg-gray-300",
+          destination == "swiper" ? "m-auto " : "ml-auto",
+        )}></div>
       <div className=" space-y-2">
         <div
           className={cn(
@@ -77,12 +81,18 @@ const DoctorCard = ({ data, destination }: Props) => {
             {data.personalInformation.contact.phoneNumber}
           </div>
         </div>
-        <div className={cn(destination == "swiper" ? "flex flex-row gap-6 justify-center" : "")}>
+        <div
+          className={cn(
+            destination == "swiper" ? "flex flex-row justify-center gap-6" : "",
+          )}>
           {data.personalInformation.contact.socialMedia.map((e, i) => {
             const Icon =
               SocialMedia[e.platform.toLowerCase() as keyof typeof SocialMedia]
             return (
               <a
+                onClick={(event) => {
+                  event.stopPropagation() // Prevents the outer click event
+                }}
                 target="_blank"
                 href={e.link}
                 key={e.id}

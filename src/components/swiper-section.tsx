@@ -12,6 +12,7 @@ import "swiper/css/autoplay"
 import "swiper/css/effect-flip"
 import "swiper/css/zoom"
 
+import Link from "next/link"
 import { Doctor as DoctorType } from "@/models/Doctor"
 
 import DoctorCard from "./doctor-card"
@@ -20,6 +21,7 @@ interface SwiperSectionProps {
   doctors: DoctorType[]
 }
 const SwiperSection: React.FC<SwiperSectionProps> = ({ doctors }) => {
+
   return (
     <Swiper
       className="flex w-[90%] items-center justify-center shadow-xl"
@@ -39,7 +41,11 @@ const SwiperSection: React.FC<SwiperSectionProps> = ({ doctors }) => {
       <div className="">
         {doctors.map((doctor, index) => (
           <SwiperSlide key={index} className="  shadow-2xl shadow-neutral-400">
-            <DoctorCard data={doctor} destination="swiper" />
+            <Link
+              href={`/${doctor.personalInformation.name.toLowerCase().split(" ")[0]}/1`}
+              suppressHydrationWarning={false}>
+              <DoctorCard data={doctor} destination="swiper" />
+            </Link>
           </SwiperSlide>
         ))}
       </div>

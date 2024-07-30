@@ -11,7 +11,7 @@ const OurPartners = async () => {
   return (
     <section>
       <div className="container">
-        <div className="flex flex-col items-center gap-5 ">
+        <div className="flex flex-col items-center gap-7 ">
           <div className="flex aspect-square w-fit items-center rounded-full bg-primary p-2 text-white">
             <h2 className=" w-fit text-4xl   font-semibold lg:text-5xl ">شركائنا</h2>
           </div>
