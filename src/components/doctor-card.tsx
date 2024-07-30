@@ -13,6 +13,8 @@ import {
   Youtube,
 } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+
 const TikTok = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -32,8 +34,9 @@ const SocialMedia = {
 
 type Props = {
   data: Doctor
+  destination?: "swiper" | undefined
 }
-const DoctorCard = ({ data }: Props) => {
+const DoctorCard = ({ data, destination }: Props) => {
   return (
     <div className="space-y-5 rounded  border bg-white    p-5  text-sm ">
       <div className="text-center ">
@@ -54,35 +57,42 @@ const DoctorCard = ({ data }: Props) => {
 
       <div className="ml-auto h-[1.5px] w-2/3 bg-gray-300"></div>
       <div className=" space-y-2">
-        <div className="flex items-center gap-1 text-sm text-[#919191] duration-200 hover:text-[#333]">
-          <MapPin className="  c w-4  shrink-0 text-primary" />
-          {data.personalInformation.location}
-        </div>
         <div
-          onClick={() => {
-            navigator.clipboard.writeText(
-              data.personalInformation.contact.phoneNumber,
-            )
-          }}
-          className="flex cursor-pointer items-center gap-1 text-sm text-[#919191] duration-200 hover:text-[#333]">
-          <Phone className="w-4  shrink-0 text-primary" />
+          className={cn(
+            destination == "swiper" ? "flex flex-row justify-center gap-5" : "",
+          )}>
+          <div className="flex items-center gap-1 text-sm text-[#919191] duration-200 hover:text-[#333]">
+            <MapPin className="  c w-4  shrink-0 text-primary" />
+            {data.personalInformation.location}
+          </div>
+          <div
+            onClick={() => {
+              navigator.clipboard.writeText(
+                data.personalInformation.contact.phoneNumber,
+              )
+            }}
+            className="flex cursor-pointer items-center gap-1 text-sm text-[#919191] duration-200 hover:text-[#333]">
+            <Phone className="w-4  shrink-0 text-primary" />
 
-          {data.personalInformation.contact.phoneNumber}
+            {data.personalInformation.contact.phoneNumber}
+          </div>
         </div>
-        {data.personalInformation.contact.socialMedia.map((e, i) => {
-          const Icon =
-            SocialMedia[e.platform.toLowerCase() as keyof typeof SocialMedia]
-          return (
-            <a
-              target="_blank"
-              href={e.link}
-              key={e.id}
-              className="flex cursor-pointer items-center gap-1 text-[#919191] duration-200 hover:text-[#333]">
-              <Icon className=" w-4  shrink-0 text-primary" />
-              {e.user}
-            </a>
-          )
-        })}
+        <div className={cn(destination == "swiper" ? "flex flex-row gap-6 justify-center" : "")}>
+          {data.personalInformation.contact.socialMedia.map((e, i) => {
+            const Icon =
+              SocialMedia[e.platform.toLowerCase() as keyof typeof SocialMedia]
+            return (
+              <a
+                target="_blank"
+                href={e.link}
+                key={e.id}
+                className="flex cursor-pointer items-center gap-1 text-[#919191] duration-200 hover:text-[#333]">
+                <Icon className=" w-4  shrink-0 text-primary" />
+                {destination == "swiper" ? "" : e.user}
+              </a>
+            )
+          })}
+        </div>
       </div>
     </div>
   )
