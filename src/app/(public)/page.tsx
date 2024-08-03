@@ -5,6 +5,7 @@ import AboutUs from "@/components/about-us"
 import ContactUS from "@/components/contact-us"
 import OurServices from "@/components/our-services"
 import OurView from "@/components/our-view"
+import Footer from "@/components/footer"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <OurView />
       <OurServices />
       <ContactUS />
+      <Footer/>
     </main>
   )
 }
