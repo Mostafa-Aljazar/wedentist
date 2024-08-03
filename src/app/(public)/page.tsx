@@ -5,7 +5,11 @@ import AboutUs from "@/components/about-us"
 import ContactUS from "@/components/contact-us"
 import OurServices from "@/components/our-services"
 import OurView from "@/components/our-view"
+
+import Footer from "@/components/footer"
+
 import OurPartners from "@/components/our-partners"
+
 
 export default function Home() {
   return (
@@ -20,6 +24,7 @@ export default function Home() {
       <OurServices />
       <OurPartners />
       <ContactUS />
+      <Footer/>
     </main>
   )
 }
