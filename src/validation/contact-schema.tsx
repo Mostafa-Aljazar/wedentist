@@ -1,4 +1,5 @@
 import { z } from "zod"
+
 export const phoneNumberSchema = z
   .string()
   .regex(/^\+?(966)?5\d{8}$/, "الرجاء استخدام رقم سعودي")
@@ -14,12 +15,12 @@ export const phoneNumberSchema = z
     },
     {
       message: "الرجاء استخدام رقم سعودي",
-    }
+    },
   )
 
 export const contactSchema = z.object({
   name: z.string().min(1, "الاسم مطلوب"),
-  email: z.string().email("الرجاء كتابة ايايمل صالح"),
+  email: z.string().email("الرجاء كتابة ايميل صالح"),
   phoneNumber: phoneNumberSchema,
   message: z.string().min(1, "الرسالة مطلوبة"),
 })
