@@ -2,6 +2,7 @@
 "use client"
 
 import React from "react"
+import Link from "next/link"
 import { type Doctor } from "@/models/Doctor"
 import {
   Facebook,
@@ -38,15 +39,17 @@ type Props = {
 }
 const DoctorCard = ({ data, destination }: Props) => {
   return (
-    <div className="space-y-5 rounded  border bg-white    p-5  text-sm ">
+    <div className="mx-auto block max-w-96  space-y-5 rounded border bg-white   p-5  text-sm ">
       <div className="text-center ">
-        <div className="mx-auto mb-7 aspect-square h-[126px] w-[126px] overflow-hidden rounded-full">
+        <Link
+          href={`/${data.slug}/1`}
+          className="mx-auto mb-7 block aspect-square h-[126px] w-[126px] overflow-hidden rounded-full">
           <img
             src={data.image}
             alt={data.personalInformation.name}
             className="h-full w-full object-cover object-[0,18%]"
           />
-        </div>
+        </Link>
         <p className=" mb-1 text-xl font-semibold text-[#333] ">
           {data.personalInformation.name}
         </p>
@@ -65,8 +68,8 @@ const DoctorCard = ({ data, destination }: Props) => {
           className={cn(
             destination == "swiper" ? "flex flex-row justify-center gap-5" : "",
           )}>
-          <div className="flex items-center gap-1 text-sm text-[#919191] duration-200 hover:text-[#333]">
-            <MapPin className="  c w-4  shrink-0 text-primary" />
+          <div className="flex items-center gap-1 whitespace-nowrap text-sm text-[#919191] duration-200 hover:text-[#333]">
+            <MapPin className="w-4 shrink-0   text-primary" />
             {data.personalInformation.location}
           </div>
           <div

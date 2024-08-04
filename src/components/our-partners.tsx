@@ -6,7 +6,8 @@ import SwiperSection from "./swiper-section"
 
 export const dynamic = "force-dynamic"
 const OurPartners = async () => {
-  const doctors = (await Doctor.find().exec()) as DoctorType[]
+  const doctors = await Doctor.find({})
+
   if (!doctors) notFound()
   return (
     <section>
@@ -16,7 +17,14 @@ const OurPartners = async () => {
             <h2 className=" w-fit text-4xl   font-semibold lg:text-5xl ">شركائنا</h2>
           </div>
           <p className="text-light text-xl font-light">نحن نعمل مع أفضل الشركاء</p>
-          <SwiperSection doctors={JSON.parse(JSON.stringify(doctors))} />
+          <div dir="ltr" className="w-full">
+            <SwiperSection
+              doctors={[
+                ...JSON.parse(JSON.stringify(doctors)),
+                ...JSON.parse(JSON.stringify(doctors)),
+              ]}
+            />
+          </div>
         </div>
       </div>
     </section>

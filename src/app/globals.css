@@ -78,3 +78,23 @@
 .ql-editor {
   @apply min-h-96;
 }
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  font-size: 18px;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+}

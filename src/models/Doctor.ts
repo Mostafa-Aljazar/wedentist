@@ -24,7 +24,7 @@ export type Education = {
   location: string
   GAP: string
 }
-export type Doctor = {
+export interface Doctor {
   image: string
   slug: string
   personalInformation: PersonalInformation
@@ -79,6 +79,17 @@ export const doctorSchema = new Schema<Doctor>(
   { timestamps: true },
 )
 
-const Doctor = mongoose.models.Doctor || model<Doctor>("Doctor", doctorSchema)
+const Doctor =
+  (mongoose.models.Doctor as mongoose.Model<
+    Doctor,
+    {},
+    {},
+    {},
+    mongoose.Document<unknown, {}, Doctor> &
+      Doctor & {
+        _id: mongoose.Types.ObjectId
+      },
+    any
+  >) || model<Doctor>("Doctor", doctorSchema)
 
 export default Doctor
