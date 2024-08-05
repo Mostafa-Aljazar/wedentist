@@ -98,7 +98,7 @@ const DoctorCard = ({ data, destination }: Props) => {
                 }}
                 target="_blank"
                 href={e.link}
-                key={e.id}
+                key={e.platform + i}
                 className="flex cursor-pointer items-center gap-1 text-[#919191] duration-200 hover:text-[#333]">
                 <Icon className=" w-4  shrink-0 text-primary" />
                 {destination == "swiper" ? "" : e.user}
