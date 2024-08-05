@@ -6,6 +6,7 @@ import dbConnect from "@/lib/db"
 import { Button } from "@/components/ui/button"
 import Pagination from "@/components/ui/pagination"
 import BlogCard from "@/components/private/blog-card"
+import { notFound } from "next/navigation"
 
 export default async function Home({
   params: { slug, page },
@@ -15,6 +16,7 @@ export default async function Home({
   await dbConnect()
 
   const doctor = await Doctor.findOne({ slug }).exec()
+  if(!doctor) notFound()
   const blogs = await Blog.find({
     doctor: doctor._id,
   })

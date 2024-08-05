@@ -1,7 +1,6 @@
 import mongoose, { model, Schema } from "mongoose"
 
 export type SocialMedia = {
-  id: number
   platform: string
   user: string
   link: string

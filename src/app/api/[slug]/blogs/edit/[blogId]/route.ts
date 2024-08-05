@@ -39,7 +39,7 @@ export async function POST(
         $set: {
           ...parsedBody,
           content: cleanBlog,
-          doctor: doctor._id,
+          doctor: doctor!._id,
           coverImage:
             parsedBody.coverImage ||
             "https://wedentis.netlify.app/_next/static/media/WEDENTIS-LOGO-ORIGINAL.4102257e.png",

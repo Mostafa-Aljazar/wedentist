@@ -1,4 +1,5 @@
 import { Metadata, ResolvingMetadata } from "next"
+import { notFound } from "next/navigation"
 import Blog from "@/models/Blog"
 import Doctor, { type Doctor as DoctorType } from "@/models/Doctor"
 
@@ -34,7 +35,7 @@ export default async function ArticlesView({
   await dbConnect()
 
   const doctor = await Doctor.findOne({ slug }).exec()
-
+  if (!doctor) notFound()
   const blogs = await Blog.find({
     doctor: doctor._id,
   })

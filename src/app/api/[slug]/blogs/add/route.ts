@@ -27,6 +27,7 @@ export async function POST(
     // connecting to DB and adding doctors
     await dbConnect()
     const doctor = await Doctor.findOne({ slug }).exec()
+    if (!doctor) return new Response("doctor not found", { status: 404 })
 
     const window = new JSDOM("").window
     const purify = DOMPurify(window)

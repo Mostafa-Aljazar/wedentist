@@ -24,7 +24,7 @@ export async function DELETE(
       Blog.findById(blogId),
     ])
 
-    if (doctor._id.toString() !== blog.doctor.toString())
+    if (doctor!._id.toString() !== blog.doctor.toString())
       return NextResponse.json({ error: "unauthorized" }, { status: 401 })
 
     const result = await Blog.deleteOne({ _id: blogId })
