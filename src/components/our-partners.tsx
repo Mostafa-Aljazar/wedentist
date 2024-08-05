@@ -2,10 +2,13 @@ import React from "react"
 import { notFound } from "next/navigation"
 import Doctor, { Doctor as DoctorType } from "@/models/Doctor"
 
+import dbConnect from "@/lib/db"
+
 import SwiperSection from "./swiper-section"
 
-export const dynamic = "force-dynamic"
+export const revalidate = 1000
 const OurPartners = async () => {
+  await dbConnect()
   const doctors = await Doctor.find({})
 
   if (!doctors) notFound()
