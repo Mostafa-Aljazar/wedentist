@@ -24,7 +24,8 @@ export async function POST(
       })
       const to =
         process.env.NODE_ENV === "development"
-          ? "xv.neer.business@gmail.com"
+          ? // ? "xv.neer.business@gmail.com"
+            "mostafaibrahim20032020@gmail.com"
           : process.env.SMIP_MAIL!
 
       await sendMail({
@@ -40,7 +41,8 @@ export async function POST(
 
     const to =
       process.env.NODE_ENV === "development"
-        ? "xv.neer.business@gmail.com"
+        ? // ? "xv.neer.business@gmail.com"
+          "mostafaibrahim20032020@gmail.com"
         : doctor.personalInformation.contact.email
 
     await sendMail({
